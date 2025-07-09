@@ -179,6 +179,526 @@
                     }
                 ]
             }
+        },
+        "/api/noticias": {
+            "get": {
+                "tags": [
+                    "Noticias"
+                ],
+                "summary": "Listar todas las noticias",
+                "description": "Obtener lista paginada de noticias publicadas",
+                "operationId": "6ddae168a9197d8ea5be0fc4760517d2",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número de página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Elementos por página (máximo 50)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "categoria",
+                        "in": "query",
+                        "description": "Filtrar por categoría",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "tecnologia"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de noticias",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "titulo": {
+                                                        "type": "string",
+                                                        "example": "Título de la noticia"
+                                                    },
+                                                    "contenido": {
+                                                        "type": "string",
+                                                        "example": "Contenido de la noticia..."
+                                                    },
+                                                    "autor": {
+                                                        "type": "string",
+                                                        "example": "Juan Pérez"
+                                                    },
+                                                    "categoria": {
+                                                        "type": "string",
+                                                        "example": "tecnologia"
+                                                    },
+                                                    "imagen_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/image.jpg"
+                                                    },
+                                                    "fecha_publicacion": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-01-15T10:30:00Z"
+                                                    },
+                                                    "publicado": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "links": {
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Noticias"
+                ],
+                "summary": "Crear nueva noticia",
+                "description": "Crear una nueva noticia (requiere autenticación)",
+                "operationId": "70d8ebcd3fb5cd45c7d1c30b818e2ef2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titulo",
+                                    "contenido",
+                                    "autor",
+                                    "categoria"
+                                ],
+                                "properties": {
+                                    "titulo": {
+                                        "type": "string",
+                                        "example": "Nueva noticia importante"
+                                    },
+                                    "contenido": {
+                                        "type": "string",
+                                        "example": "Contenido completo de la noticia..."
+                                    },
+                                    "autor": {
+                                        "type": "string",
+                                        "example": "Juan Pérez"
+                                    },
+                                    "categoria": {
+                                        "type": "string",
+                                        "example": "tecnologia"
+                                    },
+                                    "imagen_url": {
+                                        "type": "string",
+                                        "example": "https://example.com/image.jpg"
+                                    },
+                                    "fecha_publicacion": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-01-15T10:30:00Z"
+                                    },
+                                    "publicado": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Noticia creada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "titulo": {
+                                            "type": "string",
+                                            "example": "Nueva noticia importante"
+                                        },
+                                        "contenido": {
+                                            "type": "string",
+                                            "example": "Contenido completo de la noticia..."
+                                        },
+                                        "autor": {
+                                            "type": "string",
+                                            "example": "Juan Pérez"
+                                        },
+                                        "categoria": {
+                                            "type": "string",
+                                            "example": "tecnologia"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://example.com/image.jpg"
+                                        },
+                                        "fecha_publicacion": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00Z"
+                                        },
+                                        "publicado": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Errores de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/noticias/{id}": {
+            "get": {
+                "tags": [
+                    "Noticias"
+                ],
+                "summary": "Mostrar noticia específica",
+                "description": "Obtener detalles de una noticia específica",
+                "operationId": "e5a04b430d126c8bef506708cc923856",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la noticia",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles de la noticia",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "titulo": {
+                                            "type": "string",
+                                            "example": "Título de la noticia"
+                                        },
+                                        "contenido": {
+                                            "type": "string",
+                                            "example": "Contenido completo de la noticia..."
+                                        },
+                                        "autor": {
+                                            "type": "string",
+                                            "example": "Juan Pérez"
+                                        },
+                                        "categoria": {
+                                            "type": "string",
+                                            "example": "tecnologia"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://example.com/image.jpg"
+                                        },
+                                        "fecha_publicacion": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00Z"
+                                        },
+                                        "publicado": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Noticia no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Noticia no encontrada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Noticias"
+                ],
+                "summary": "Actualizar noticia",
+                "description": "Actualizar una noticia existente (requiere autenticación)",
+                "operationId": "46063efbde1d8d81d595cbe3658ef4d8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la noticia",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "titulo": {
+                                        "type": "string",
+                                        "example": "Título actualizado"
+                                    },
+                                    "contenido": {
+                                        "type": "string",
+                                        "example": "Contenido actualizado..."
+                                    },
+                                    "autor": {
+                                        "type": "string",
+                                        "example": "Juan Pérez"
+                                    },
+                                    "categoria": {
+                                        "type": "string",
+                                        "example": "tecnologia"
+                                    },
+                                    "imagen_url": {
+                                        "type": "string",
+                                        "example": "https://example.com/image.jpg"
+                                    },
+                                    "fecha_publicacion": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-01-15T10:30:00Z"
+                                    },
+                                    "publicado": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Noticia actualizada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "titulo": {
+                                            "type": "string",
+                                            "example": "Título actualizado"
+                                        },
+                                        "contenido": {
+                                            "type": "string",
+                                            "example": "Contenido actualizado..."
+                                        },
+                                        "autor": {
+                                            "type": "string",
+                                            "example": "Juan Pérez"
+                                        },
+                                        "categoria": {
+                                            "type": "string",
+                                            "example": "tecnologia"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://example.com/image.jpg"
+                                        },
+                                        "fecha_publicacion": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00Z"
+                                        },
+                                        "publicado": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Noticia no encontrada"
+                    },
+                    "422": {
+                        "description": "Errores de validación"
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Noticias"
+                ],
+                "summary": "Eliminar noticia",
+                "description": "Eliminar una noticia existente (requiere autenticación)",
+                "operationId": "bf9fdf08bd9f1ed07f2a0affa7e1e9bd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la noticia",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Noticia eliminada exitosamente"
+                    },
+                    "404": {
+                        "description": "Noticia no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Noticia no encontrada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -194,6 +714,10 @@
         {
             "name": "Autenticación",
             "description": "Autenticación"
+        },
+        {
+            "name": "Noticias",
+            "description": "Noticias"
         }
     ]
 }
