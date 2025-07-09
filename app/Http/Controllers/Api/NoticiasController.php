@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Noticia;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class NoticiasController extends Controller
+class NoticiasController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('auth:sanctum')->except(['index', 'show']);
+        return [
+            new Middleware('auth:sanctum', except: ['index', 'show']),
+        ];
     }
 
     /**
