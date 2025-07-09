@@ -3,133 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API de Finsmart</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    <title>Finsmart API - Plataforma Empresarial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        'mono': ['SF Mono', 'Monaco', 'monospace']
+                    }
+                }
+            }
         }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8fafc;
-            color: #374151;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-        }
-        
-        .header p {
-            font-size: 1.1rem;
-            color: #6b7280;
-        }
-        
-        .api-info {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            width: 100%;
-        }
-        
-        .endpoint {
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: #f9fafb;
-            border-radius: 6px;
-            border-left: 4px solid #3b82f6;
-        }
-        
-        .endpoint h3 {
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-        }
-        
-        .endpoint-list {
-            margin: 0;
-            padding-left: 1.5rem;
-        }
-        
-        .endpoint-list li {
-            margin-bottom: 0.25rem;
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
-        
-        .credentials {
-            background: #fef3c7;
-            border: 1px solid #f59e0b;
-            padding: 1rem;
-            border-radius: 6px;
-            margin-top: 1.5rem;
-        }
-        
-        .credentials h4 {
-            color: #92400e;
-            margin-bottom: 0.5rem;
-        }
-        
-        .credentials p {
-            color: #92400e;
-            margin: 0.25rem 0;
-            font-family: monospace;
-        }
-    </style>
+    </script>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>API de Finsmart</h1>
-            <p>Acceso a endpoints REST para gestión de Finsmart</p>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                🏢 Finsmart API
+            </h1>
+            <p class="text-xl text-gray-700 mb-2">
+                Plataforma financiera completa - Master EBIS Full Stack Developer
+            </p>
+            <p class="text-gray-500">
+                Gestión para finanzas, con noticias, formación y empleados
+            </p>
         </div>
         
-        <div class="api-info">
-            <div class="endpoint">
-                <h3>Autenticación</h3>
-                <ul class="endpoint-list">
-                    <li>POST /api/login - Iniciar sesión</li>
-                    <li>POST /api/logout - Cerrar sesión</li>
-                    <li>GET /api/user - Usuario autenticado</li>
-                </ul>
+        <!-- Main Content -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <!-- Authentication Section -->
+            <div class="mb-8 p-6 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl border-l-4 border-blue-500">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <span class="mr-2">🔐</span>
+                    Autenticación
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <span class="font-mono text-sm text-gray-800">POST /api/login</span>
+                        <span class="text-sm text-gray-500">Iniciar sesión</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <span class="font-mono text-sm text-gray-800">POST /api/logout</span>
+                        <span class="text-sm text-gray-500">Cerrar sesión</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <span class="font-mono text-sm text-gray-800">GET /api/user</span>
+                        <span class="text-sm text-gray-500">Usuario autenticado</span>
+                    </div>
+                </div>
             </div>
             
-            <div class="endpoint">
-                <h3>Noticias</h3>
-                <ul class="endpoint-list">
-                    <li>GET /api/noticias - Listar noticias</li>
-                    <li>POST /api/noticias - Crear noticia</li>
-                    <li>GET /api/noticias/{id} - Ver noticia</li>
-                    <li>PUT /api/noticias/{id} - Actualizar noticia</li>
-                    <li>DELETE /api/noticias/{id} - Eliminar noticia</li>
-                </ul>
+            <!-- Noticias Section -->
+            <div class="mb-8 p-6 bg-gradient-to-r from-green-50 to-green-100 rounded-xl border-l-4 border-green-500">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <span class="mr-2">📰</span>
+                    Noticias
+                    <span class="ml-2 px-2 py-1 text-xs font-medium bg-green-500 text-white rounded-full">
+                        Implementado
+                    </span>
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-green-500 text-white rounded mr-3">GET</span>
+                            <span class="font-mono text-sm text-gray-800">/api/noticias</span>
+                        </div>
+                        <span class="text-sm text-gray-500">Con paginación</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-blue-500 text-white rounded mr-3">POST</span>
+                            <span class="font-mono text-sm text-gray-800">/api/noticias</span>
+                        </div>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-green-500 text-white rounded mr-3">GET</span>
+                            <span class="font-mono text-sm text-gray-800">/api/noticias/{id}</span>
+                        </div>
+                        <span class="text-sm text-gray-500">Ver específica</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-yellow-500 text-white rounded mr-3">PUT</span>
+                            <span class="font-mono text-sm text-gray-800">/api/noticias/{id}</span>
+                        </div>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-red-500 text-white rounded mr-3">DEL</span>
+                            <span class="font-mono text-sm text-gray-800">/api/noticias/{id}</span>
+                        </div>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
+                    </div>
+                </div>
             </div>
             
-            <div class="credentials">
-                <h4>Credenciales de prueba</h4>
-                <p>Email: test@example.com</p>
-                <p>Password: password123</p>
+            <!-- Formación Section -->
+            <div class="mb-8 p-6 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl border-l-4 border-purple-500">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <span class="mr-2">🎓</span>
+                    Formación
+                    <span class="ml-2 px-2 py-1 text-xs font-medium bg-yellow-500 text-white rounded-full">
+                        Próximamente
+                    </span>
+                </h3>
+                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4 rounded-lg">
+                    <p class="text-sm text-gray-700">
+                        Nuestra base de datos en formación financiera
+                    </p>
+                </div>
             </div>
+            
+            <!-- Empleados Section -->
+            <div class="mb-8 p-6 bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-xl border-l-4 border-indigo-500">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <span class="mr-2">👥</span>
+                    Empleados
+                    <span class="ml-2 px-2 py-1 text-xs font-medium bg-yellow-500 text-white rounded-full">
+                        Próximamente
+                    </span>
+                </h3>
+                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4 rounded-lg">
+                    <p class="text-sm text-gray-700">
+                        Gestión de empleados y nuestro equipo
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Credentials Section -->
+            <div class="p-6 bg-gradient-to-r from-amber-50 to-amber-100 rounded-xl border-l-4 border-amber-500">
+                <h4 class="text-lg font-semibold text-amber-800 mb-4 flex items-center">
+                    <span class="mr-2">🔑</span>
+                    Credenciales de prueba
+                </h4>
+                <div class="space-y-3">
+                    <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                        <span class="font-medium text-amber-800 w-20">Email:</span>
+                        <span class="font-mono text-sm text-gray-800 bg-gray-100 px-2 py-1 rounded">test@example.com</span>
+                    </div>
+                    <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                        <span class="font-medium text-amber-800 w-20">Password:</span>
+                        <span class="font-mono text-sm text-gray-800 bg-gray-100 px-2 py-1 rounded">password123</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <a href="/api/documentation" 
+               target="_blank"
+               class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
+                <span class="mr-2">📖</span>
+                Ver Documentación Swagger
+            </a>
+            <a href="https://github.com/LD-Solutions/proyecto-ebis-modulo2" 
+               target="_blank"
+               class="inline-flex items-center justify-center px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
+                <span class="mr-2">💻</span>
+                Ver en GitHub
+            </a>
+        </div>
+        
+        <!-- Footer -->
+        <div class="text-center text-gray-600">
+            <p class="mb-2">
+                🎓 Desarrollado para el <strong>Master EBIS Full Stack Developer</strong>
+            </p>
+            <p class="text-sm">
+                Powered by 
+                <a href="https://laravel.com" class="text-blue-600 hover:text-blue-800 underline">Laravel</a> 
+                & 
+                <a href="https://laravel.com/docs/sanctum" class="text-blue-600 hover:text-blue-800 underline">Sanctum</a>
+            </p>
         </div>
     </div>
 </body>
