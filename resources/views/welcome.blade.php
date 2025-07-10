@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finsmart API - Plataforma Empresarial</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪙</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -23,7 +24,7 @@
         <!-- Header -->
         <div class="text-center mb-12">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                🏢 Finsmart API
+                🪙 Finsmart API
             </h1>
             <p class="text-xl text-gray-700 mb-2">
                 Plataforma financiera completa - Master EBIS Full Stack Developer
@@ -304,6 +305,67 @@
                             <span class="px-2 py-1 text-xs font-medium bg-red-500 text-white rounded mr-3">DEL</span>
                             <span class="font-mono text-sm text-gray-800">/api/formaciones/{id}</span>
                         </div>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Portfolio Section -->
+            <div class="mb-8 p-6 bg-gradient-to-r from-teal-50 to-teal-100 rounded-xl border-l-4 border-teal-500">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <span class="mr-2">📊</span>
+                    Portfolio
+                    <span class="ml-2 px-2 py-1 text-xs font-medium bg-green-500 text-white rounded-full">
+                        Implementado
+                    </span>
+                </h3>
+                <div class="mb-4 p-3 bg-teal-100 rounded-lg">
+                    <p class="text-sm text-teal-800">
+                        <strong>Plataforma de inversión:</strong> Gestión de portafolio de fondos índice con valoración dinámica
+                    </p>
+                    <p class="text-xs text-teal-700 mt-2">
+                        Balance inicial: $10,000 | Operaciones: Comprar, Vender, Consultar | Cálculo automático de P&L
+                    </p>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-green-500 text-white rounded mr-3">GET</span>
+                            <span class="font-mono text-sm text-gray-800">/api/portfolios</span>
+                        </div>
+                        <span class="text-sm text-gray-500">Resumen completo + balance</span>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-blue-500 text-white rounded mr-3">POST</span>
+                            <span class="font-mono text-sm text-gray-800">/api/portfolios</span>
+                        </div>
+                        <span class="text-sm text-gray-500">Comprar posición inicial</span>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-green-500 text-white rounded mr-3">GET</span>
+                            <span class="font-mono text-sm text-gray-800">/api/portfolios/{id}</span>
+                        </div>
+                        <span class="text-sm text-gray-500">Ver posición específica</span>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-yellow-500 text-white rounded mr-3">PUT</span>
+                            <span class="font-mono text-sm text-gray-800">/api/portfolios/{id}</span>
+                        </div>
+                        <span class="text-sm text-gray-500">Comprar más / Vender parte</span>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-red-500 text-white rounded mr-3">DEL</span>
+                            <span class="font-mono text-sm text-gray-800">/api/portfolios/{id}</span>
+                        </div>
+                        <span class="text-sm text-gray-500">Vender toda la posición</span>
                         <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
                     </div>
                 </div>

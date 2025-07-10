@@ -16,10 +16,17 @@ class PortfolioFactory extends Factory
      */
     public function definition(): array
     {
+        // Try to get existing IndexFund symbols, fallback to creating one if none exist
+        $indexFunds = \App\Models\IndexFund::pluck('symbol')->toArray();
+        $symbol = !empty($indexFunds) 
+            ? $this->faker->randomElement($indexFunds)
+            : \App\Models\IndexFund::factory()->create()->symbol;
+
         return [
-            'symbol' => $this->faker->randomElement(['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA', 'META', 'NVDA', 'NFLX']),
+            'symbol' => $symbol,
             'shares' => $this->faker->randomFloat(2, 1, 100),
-            'purchase_price' => $this->faker->randomFloat(2, 50, 500)
+            'purchase_price' => $this->faker->randomFloat(2, 50, 500),
+            'id_usuario' => \App\Models\User::factory()
         ];
     }
 }

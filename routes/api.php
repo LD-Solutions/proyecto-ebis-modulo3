@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\EmpleadosController;
 use App\Http\Controllers\Api\CalculadoraAhorrosController;
 use App\Http\Controllers\Api\MensajesContactoController;
 use App\Http\Controllers\Api\PortfolioController;
-use App\Http\Controllers\Api\IndexFundController;
 use App\Http\Controllers\Api\FormacionController;
 
 Route::post('/login', [AuthController::class, 'login']);
@@ -24,5 +23,4 @@ Route::apiResource('mensajes-contacto', MensajesContactoController::class);
 Route::apiResource('noticias', NoticiasController::class);
 Route::apiResource('empleados', EmpleadosController::class);
 Route::apiResource('portfolios', PortfolioController::class);
-Route::apiResource('index-funds', IndexFundController::class);
 Route::apiResource('formaciones', FormacionController::class);

@@ -14,11 +14,13 @@ class IndexFund extends Model
         'symbol',
         'expense_ratio',
         'aum',
+        'current_price',
         'description'
     ];
 
     protected $casts = [
         'expense_ratio' => 'decimal:4',
-        'aum' => 'decimal:2'
+        'aum' => 'decimal:2',
+        'current_price' => 'decimal:2'
     ];
 }
