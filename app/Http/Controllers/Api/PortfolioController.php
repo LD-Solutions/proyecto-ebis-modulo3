@@ -11,12 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
-/**
- * @OA\Tag(
- *     name="Portfolio",
- *     description="Gestión de portafolio de inversiones"
- * )
- */
 
 class PortfolioController extends Controller implements HasMiddleware
 {

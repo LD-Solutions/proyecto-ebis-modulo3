@@ -11,12 +11,6 @@ use Illuminate\Validation\ValidationException;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-/**
- * @OA\Tag(
- *     name="Mensajes de Contacto",
- *     description="Gestión de todas las solicitudes de contacto del formulario web"
- * )
- */
 
 class MensajesContactoController extends Controller implements HasMiddleware
 {

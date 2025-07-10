@@ -10,12 +10,6 @@ use App\Models\Empleado;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 
-/**
- * @OA\Tag(
- *     name="Empleados",
- *     description="Gestión de empleados"
- * )
- */
 
 class EmpleadosController extends Controller implements HasMiddleware
 {

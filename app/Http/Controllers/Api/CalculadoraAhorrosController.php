@@ -12,12 +12,6 @@ use App\Models\User;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
-/**
- * @OA\Tag(
- *     name="Calculadora Ahorros",
- *     description="Gestión de calculadoras de ahorros de usuarios con el método 50/30/20, calculado en tiempo de ejecución. Se crea automáticamente cuando se crea un usuario, por lo que no necesitamos POST"
- * )
- */
 class CalculadoraAhorrosController extends Controller implements HasMiddleware
 {
     public static function middleware(): array

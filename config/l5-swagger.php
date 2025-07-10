@@ -294,6 +294,12 @@ return [
                 'filter' => env('L5_SWAGGER_UI_FILTERS', true), // true | false
             ],
 
+            /*
+             * Apply a sort to the tags list. Can be null (default order), 'alpha' (alphabetical), 
+             * or a function for custom sorting
+             */
+            'tags_sorter' => env('L5_SWAGGER_TAGS_SORTER', null),
+
             'authorization' => [
                 /*
                  * If set to true, it persists authorization data, and it would not be lost on browser close/refresh
