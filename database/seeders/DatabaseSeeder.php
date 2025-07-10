@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
         // Si se elimina un usuario, se elimina su calculadora_ahorro para el
         /* $this->call(CalculadoraAhorrosSeeder::class); */
         $this->call(MensajesContactoSeeder::class);
+        $this->call(PortfolioSeeder::class);
+        $this->call(IndexFundSeeder::class);
+        $this->call(FormacionSeeder::class);
 
     }
 }
