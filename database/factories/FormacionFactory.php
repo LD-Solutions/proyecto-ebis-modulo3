@@ -16,15 +16,60 @@ class FormacionFactory extends Factory
      */
     public function definition(): array
     {
-        return [
+        $tipo = $this->faker->randomElement(['curso', 'video', 'libro', 'webinar']);
+        $categoria = $this->faker->randomElement(['finanzas', 'inversiones', 'trading', 'criptomonedas']);
+        
+        $data = [
             'titulo' => $this->faker->sentence(4),
             'descripcion' => $this->faker->paragraph(3),
             'instructor' => $this->faker->name(),
-            'duracion_horas' => $this->faker->numberBetween(10, 100),
-            'precio' => $this->faker->randomFloat(2, 99, 999),
-            'categoria' => $this->faker->randomElement(['finanzas', 'inversiones', 'trading', 'criptomonedas', 'economia']),
+            'precio' => $this->faker->randomFloat(2, 0, 199),
+            'tipo' => $tipo,
+            'categoria' => $categoria,
             'nivel' => $this->faker->randomElement(['principiante', 'intermedio', 'avanzado']),
-            'fecha_inicio' => $this->faker->dateTimeBetween('now', '+3 months')
         ];
+        
+        return $this->applyTipoAttributes($data, $tipo);
+    }
+
+    public function configure()
+    {
+        return $this->afterMaking(function (\App\Models\Formacion $formacion) {
+            $data = $this->applyTipoAttributes($formacion->toArray(), $formacion->tipo);
+            $formacion->forceFill($data);
+        });
+    }
+
+    private function applyTipoAttributes(array $data, string $tipo): array
+    {
+        switch ($tipo) {
+            case 'curso':
+                $data['duracion_horas'] = $this->faker->numberBetween(10, 80);
+                $data['fecha_inicio'] = $this->faker->dateTimeBetween('now', '+3 months');
+                break;
+                
+            case 'video':
+                $data['duracion_horas'] = $this->faker->numberBetween(1, 8);
+                $data['url_video'] = 'https://youtube.com/watch?v=' . $this->faker->regexify('[A-Za-z0-9]{11}');
+                break;
+                
+            case 'libro':
+                $data['paginas'] = $this->faker->numberBetween(50, 300);
+                $data['archivo_path'] = 'libros/' . $this->faker->randomElement([
+                    'introduccion-inversiones.txt',
+                    'trading-para-principiantes.txt', 
+                    'criptomonedas-guia-completa.txt',
+                    'planificacion-financiera-personal.txt'
+                ]);
+                $data['precio'] = $this->faker->randomFloat(2, 0, 49);
+                break;
+                
+            case 'webinar':
+                $data['duracion_horas'] = $this->faker->numberBetween(1, 3);
+                $data['fecha_inicio'] = $this->faker->dateTimeBetween('now', '+1 month');
+                break;
+        }
+        
+        return $data;
     }
 }

@@ -17,9 +17,13 @@ class Formacion extends Model
         'instructor',
         'duracion_horas',
         'precio',
+        'tipo',
         'categoria',
         'nivel',
-        'fecha_inicio'
+        'fecha_inicio',
+        'archivo_path',
+        'paginas',
+        'url_video'
     ];
 
     protected $casts = [

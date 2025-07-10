@@ -16,11 +16,15 @@ return new class extends Migration
             $table->string('titulo');
             $table->text('descripcion');
             $table->string('instructor');
-            $table->integer('duracion_horas');
+            $table->integer('duracion_horas')->nullable();
             $table->decimal('precio', 8, 2);
+            $table->enum('tipo', ['curso', 'video', 'libro', 'webinar']);
             $table->string('categoria');
             $table->enum('nivel', ['principiante', 'intermedio', 'avanzado']);
-            $table->datetime('fecha_inicio');
+            $table->datetime('fecha_inicio')->nullable();
+            $table->string('archivo_path')->nullable();
+            $table->integer('paginas')->nullable();
+            $table->string('url_video')->nullable();
             $table->timestamps();
         });
     }

@@ -258,14 +258,54 @@
                 <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                     <span class="mr-2">🎓</span>
                     Formación
-                    <span class="ml-2 px-2 py-1 text-xs font-medium bg-yellow-500 text-white rounded-full">
-                        Próximamente
+                    <span class="ml-2 px-2 py-1 text-xs font-medium bg-green-500 text-white rounded-full">
+                        Implementado
                     </span>
                 </h3>
-                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4 rounded-lg">
-                    <p class="text-sm text-gray-700">
-                        Nuestra base de datos en formación financiera y recursos educativos
+                <div class="mb-4 p-3 bg-purple-100 rounded-lg">
+                    <p class="text-sm text-purple-800">
+                        <strong>Contenido educativo:</strong> Cursos, videos, libros y webinars financieros con mock de libros en storage
                     </p>
+                    <p class="text-xs text-purple-700 mt-2">
+                        Tipos: curso, video, libro, webinar | Niveles: principiante, intermedio, avanzado
+                    </p>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-green-500 text-white rounded mr-3">GET</span>
+                            <span class="font-mono text-sm text-gray-800">/api/formaciones</span>
+                        </div>
+                        <span class="text-sm text-gray-500">Con filtros: tipo, categoria, nivel</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-blue-500 text-white rounded mr-3">POST</span>
+                            <span class="font-mono text-sm text-gray-800">/api/formaciones</span>
+                        </div>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-green-500 text-white rounded mr-3">GET</span>
+                            <span class="font-mono text-sm text-gray-800">/api/formaciones/{id}</span>
+                        </div>
+                        <span class="text-sm text-gray-500">Ver específico</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-yellow-500 text-white rounded mr-3">PUT</span>
+                            <span class="font-mono text-sm text-gray-800">/api/formaciones/{id}</span>
+                        </div>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="px-2 py-1 text-xs font-medium bg-red-500 text-white rounded mr-3">DEL</span>
+                            <span class="font-mono text-sm text-gray-800">/api/formaciones/{id}</span>
+                        </div>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">🔒 Auth</span>
+                    </div>
                 </div>
             </div>
             
