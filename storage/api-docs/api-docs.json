@@ -180,6 +180,1633 @@
                 ]
             }
         },
+        "/api/calculadora-ahorros": {
+            "get": {
+                "tags": [
+                    "Calculadora Ahorros"
+                ],
+                "summary": "Listar todas las calculadoras de ahorros",
+                "description": "Obtiene una lista de todas las calculadoras de ahorros registradas con campos calculados",
+                "operationId": "indexCalculadoraAhorros",
+                "responses": {
+                    "200": {
+                        "description": "Lista de calculadoras obtenida exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "ingreso_mensual": {
+                                                "type": "number",
+                                                "format": "decimal",
+                                                "example": 2500.5
+                                            },
+                                            "id_usuario": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "necesidad": {
+                                                "description": "50% del ingreso mensual",
+                                                "type": "number",
+                                                "format": "decimal",
+                                                "example": 1250.25
+                                            },
+                                            "ocio": {
+                                                "description": "30% del ingreso mensual",
+                                                "type": "number",
+                                                "format": "decimal",
+                                                "example": 750.15
+                                            },
+                                            "ahorros": {
+                                                "description": "20% del ingreso mensual",
+                                                "type": "number",
+                                                "format": "decimal",
+                                                "example": 500.1
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-07-10T12:00:00.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-07-10T12:00:00.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/calculadora-ahorros/{id}": {
+            "get": {
+                "tags": [
+                    "Calculadora Ahorros"
+                ],
+                "summary": "Mostrar calculadora por ID de usuario",
+                "description": "Obtiene los detalles de la calculadora de ahorros de un usuario específico usando el ID del usuario",
+                "operationId": "showCalculadoraAhorros",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario propietario de la calculadora",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Calculadora encontrada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "ingreso_mensual": {
+                                            "type": "number",
+                                            "format": "decimal",
+                                            "example": 2500.5
+                                        },
+                                        "id_usuario": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "necesidad": {
+                                            "description": "50% del ingreso mensual",
+                                            "type": "number",
+                                            "format": "decimal",
+                                            "example": 1250.25
+                                        },
+                                        "ocio": {
+                                            "description": "30% del ingreso mensual",
+                                            "type": "number",
+                                            "format": "decimal",
+                                            "example": 750.15
+                                        },
+                                        "ahorros": {
+                                            "description": "20% del ingreso mensual",
+                                            "type": "number",
+                                            "format": "decimal",
+                                            "example": 500.1
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-07-10T12:00:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-07-10T12:00:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario o calculadora no encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Usuario no encontrado"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Este usuario no tiene calculadora de ahorros"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Calculadora Ahorros"
+                ],
+                "summary": "Actualizar calculadora por ID de usuario",
+                "description": "Actualiza la calculadora de ahorros de un usuario específico usando el ID del usuario",
+                "operationId": "updateCalculadoraAhorros",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario propietario de la calculadora",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos para actualizar la calculadora",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ingreso_mensual": {
+                                        "description": "Ingreso mensual del usuario (opcional)",
+                                        "type": "number",
+                                        "format": "decimal",
+                                        "example": 3000.75
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Calculadora actualizada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "ingreso_mensual": {
+                                            "type": "number",
+                                            "format": "decimal",
+                                            "example": 3000.75
+                                        },
+                                        "id_usuario": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-07-10T12:00:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-07-10T12:30:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario o calculadora no encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Usuario no encontrado"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Este usuario no tiene calculadora de ahorros"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error de validación o datos vacíos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "ingreso_mensual": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El ingreso mensual debe ser un número."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "error": {
+                                                    "type": "string",
+                                                    "example": "Debes enviar al menos un campo correcto para actualizar."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Calculadora Ahorros"
+                ],
+                "summary": "Resetear calculadora por ID de usuario",
+                "description": "Resetea la calculadora de ahorros de un usuario específico (pone el ingreso mensual en 0) usando el ID del usuario",
+                "operationId": "destroyCalculadoraAhorros",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario propietario de la calculadora",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Calculadora reseteada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Calculadora reseteada correctamente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario o calculadora no encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Usuario no encontrado"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Este usuario no tiene calculadora de ahorros"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/empleados": {
+            "get": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Listar empleados",
+                "description": "Obtiene la lista completa de empleados registrados en el sistema",
+                "operationId": "a800bff17f5448b9b337f4bb18875c96",
+                "responses": {
+                    "200": {
+                        "description": "Listado completo de empleados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "Juan Carlos"
+                                            },
+                                            "apellido": {
+                                                "type": "string",
+                                                "example": "García López"
+                                            },
+                                            "cargo": {
+                                                "type": "string",
+                                                "example": "Desarrollador Full Stack"
+                                            },
+                                            "imagen_url": {
+                                                "type": "string",
+                                                "example": "https://ejemplo.com/fotos/juan-garcia.jpg"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-01-15T10:30:00.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-01-15T10:30:00.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "nombre": "Juan Carlos",
+                                        "apellido": "García López",
+                                        "cargo": "Desarrollador Full Stack",
+                                        "imagen_url": "https://ejemplo.com/fotos/juan-garcia.jpg",
+                                        "created_at": "2024-01-15T10:30:00.000000Z",
+                                        "updated_at": "2024-01-15T10:30:00.000000Z"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "nombre": "María Elena",
+                                        "apellido": "Rodríguez Pérez",
+                                        "cargo": "Diseñadora UX/UI",
+                                        "imagen_url": "https://ejemplo.com/fotos/maria-rodriguez.jpg",
+                                        "created_at": "2024-01-16T14:25:00.000000Z",
+                                        "updated_at": "2024-01-16T14:25:00.000000Z"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Crear empleado",
+                "description": "Crea un nuevo empleado en el sistema",
+                "operationId": "bdecf812fb6a4e706242c70449ed26af",
+                "requestBody": {
+                    "description": "Datos del empleado a crear",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "apellido",
+                                    "cargo"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "description": "Nombre del empleado",
+                                        "type": "string",
+                                        "example": "Ana Patricia"
+                                    },
+                                    "apellido": {
+                                        "description": "Apellido del empleado",
+                                        "type": "string",
+                                        "example": "Martínez Silva"
+                                    },
+                                    "cargo": {
+                                        "description": "Cargo o rol dentro de la empresa",
+                                        "type": "string",
+                                        "example": "Gerente de Proyectos"
+                                    },
+                                    "imagen_url": {
+                                        "description": "URL de la imagen de perfil (opcional)",
+                                        "type": "string",
+                                        "format": "uri",
+                                        "example": "https://ejemplo.com/fotos/ana-martinez.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "nombre": "Ana Patricia",
+                                "apellido": "Martínez Silva",
+                                "cargo": "Gerente de Proyectos",
+                                "imagen_url": "https://ejemplo.com/fotos/ana-martinez.jpg"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Empleado creado satisfactoriamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 3
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Ana Patricia"
+                                        },
+                                        "apellido": {
+                                            "type": "string",
+                                            "example": "Martínez Silva"
+                                        },
+                                        "cargo": {
+                                            "type": "string",
+                                            "example": "Gerente de Proyectos"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://ejemplo.com/fotos/ana-martinez.jpg"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-07-10T16:45:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-07-10T16:45:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Errores de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "nombre": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "El campo nombre es obligatorio."
+                                            }
+                                        },
+                                        "apellido": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "El campo apellido es obligatorio."
+                                            }
+                                        },
+                                        "cargo": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "El campo cargo es obligatorio."
+                                            }
+                                        },
+                                        "imagen_url": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "El campo imagen_url debe ser una URL válida."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/empleados/{id}": {
+            "get": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Mostrar empleado",
+                "description": "Obtiene los detalles de un empleado específico por su ID",
+                "operationId": "d0780c68ae5f4b9eeea9923b3be899b1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del empleado a consultar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Empleado encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Juan Carlos"
+                                        },
+                                        "apellido": {
+                                            "type": "string",
+                                            "example": "García López"
+                                        },
+                                        "cargo": {
+                                            "type": "string",
+                                            "example": "Desarrollador Full Stack"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://ejemplo.com/fotos/juan-garcia.jpg"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Empleado no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Empleado no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Actualizar empleado",
+                "description": "Actualiza los datos de un empleado existente. Solo es necesario enviar los campos que se desean modificar",
+                "operationId": "bb1fa3039e1b779e3cd2541a00fdc881",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del empleado a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos del empleado a actualizar (solo incluir los campos que se desean modificar)",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "description": "Nombre del empleado",
+                                        "type": "string",
+                                        "example": "Juan Carlos"
+                                    },
+                                    "apellido": {
+                                        "description": "Apellido del empleado",
+                                        "type": "string",
+                                        "example": "García López"
+                                    },
+                                    "cargo": {
+                                        "description": "Cargo o rol dentro de la empresa",
+                                        "type": "string",
+                                        "example": "Senior Full Stack Developer"
+                                    },
+                                    "imagen_url": {
+                                        "description": "URL de la imagen de perfil",
+                                        "type": "string",
+                                        "format": "uri",
+                                        "example": "https://ejemplo.com/fotos/juan-garcia-nuevo.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "cargo": "Senior Full Stack Developer",
+                                "imagen_url": "https://ejemplo.com/fotos/juan-garcia-nuevo.jpg"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Empleado actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Juan Carlos"
+                                        },
+                                        "apellido": {
+                                            "type": "string",
+                                            "example": "García López"
+                                        },
+                                        "cargo": {
+                                            "type": "string",
+                                            "example": "Senior Full Stack Developer"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://ejemplo.com/fotos/juan-garcia-nuevo.jpg"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-07-10T17:15:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Errores de validación o no se enviaron campos válidos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "error": {
+                                                    "type": "string",
+                                                    "example": "Debes enviar al menos un campo correcto para actualizar."
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre debe ser texto."
+                                                    }
+                                                },
+                                                "apellido": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo apellido debe ser texto."
+                                                    }
+                                                },
+                                                "cargo": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo cargo debe ser texto."
+                                                    }
+                                                },
+                                                "imagen_url": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo imagen_url debe ser una URL válida."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Empleado no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Empleado no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Eliminar empleado",
+                "description": "Elimina un empleado del sistema de forma permanente",
+                "operationId": "024642145d28c0587edd6fde14218580",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del empleado a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Empleado eliminado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Empleado eliminado correctamente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Empleado no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Empleado no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/mensajes-contacto": {
+            "get": {
+                "tags": [
+                    "Mensajes de Contacto"
+                ],
+                "summary": "Listar mensajes de contacto",
+                "description": "Obtiene la lista completa de mensajes de contacto registrados en el sistema",
+                "operationId": "8c6731ef51d852b9dcea6029a0894fc3",
+                "responses": {
+                    "200": {
+                        "description": "Listado completo de mensajes de contacto",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre_apellidos": {
+                                                "type": "string",
+                                                "example": "Juan Carlos García López"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "juan.garcia@ejemplo.com"
+                                            },
+                                            "telefono": {
+                                                "type": "string",
+                                                "example": "+34 612 345 678"
+                                            },
+                                            "mensaje": {
+                                                "type": "string",
+                                                "example": "Hola, me gustaría obtener más información sobre sus servicios..."
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-01-15T10:30:00.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-01-15T10:30:00.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "nombre_apellidos": "Juan Carlos García López",
+                                        "email": "juan.garcia@ejemplo.com",
+                                        "telefono": "+34 612 345 678",
+                                        "mensaje": "Hola, me gustaría obtener más información sobre sus servicios...",
+                                        "created_at": "2024-01-15T10:30:00.000000Z",
+                                        "updated_at": "2024-01-15T10:30:00.000000Z"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "nombre_apellidos": "María Elena Rodríguez Pérez",
+                                        "email": "maria.rodriguez@ejemplo.com",
+                                        "telefono": "+34 687 654 321",
+                                        "mensaje": "Buenos días, quisiera solicitar una cotización para...",
+                                        "created_at": "2024-01-16T14:25:00.000000Z",
+                                        "updated_at": "2024-01-16T14:25:00.000000Z"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Mensajes de Contacto"
+                ],
+                "summary": "Crear mensaje de contacto",
+                "description": "Crea un nuevo mensaje de contacto en el sistema",
+                "operationId": "54e3a3e7aa37f4237cbc97456720c05c",
+                "requestBody": {
+                    "description": "Datos del mensaje de contacto a crear",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre_apellidos",
+                                    "email",
+                                    "telefono",
+                                    "mensaje"
+                                ],
+                                "properties": {
+                                    "nombre_apellidos": {
+                                        "description": "Nombre completo de la persona que contacta",
+                                        "type": "string",
+                                        "example": "Ana Patricia Martínez Silva"
+                                    },
+                                    "email": {
+                                        "description": "Dirección de correo electrónico",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "ana.martinez@ejemplo.com"
+                                    },
+                                    "telefono": {
+                                        "description": "Número de teléfono de contacto",
+                                        "type": "string",
+                                        "example": "+34 699 123 456"
+                                    },
+                                    "mensaje": {
+                                        "description": "Contenido del mensaje de contacto",
+                                        "type": "string",
+                                        "example": "Estoy interesado en sus servicios de desarrollo web. ¿Podrían contactarme para discutir mi proyecto?"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "nombre_apellidos": "Ana Patricia Martínez Silva",
+                                "email": "ana.martinez@ejemplo.com",
+                                "telefono": "+34 699 123 456",
+                                "mensaje": "Estoy interesado en sus servicios de desarrollo web. ¿Podrían contactarme para discutir mi proyecto?"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Mensaje de contacto creado satisfactoriamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto creado exitosamente."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "nombre_apellidos": {
+                                                    "type": "string",
+                                                    "example": "Ana Patricia Martínez Silva"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "ana.martinez@ejemplo.com"
+                                                },
+                                                "telefono": {
+                                                    "type": "string",
+                                                    "example": "+34 699 123 456"
+                                                },
+                                                "mensaje": {
+                                                    "type": "string",
+                                                    "example": "Estoy interesado en sus servicios de desarrollo web. ¿Podrían contactarme para discutir mi proyecto?"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-07-10T16:45:00.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-07-10T16:45:00.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Errores de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error de validación."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "nombre_apellidos": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre y apellidos es obligatorio."
+                                                    }
+                                                },
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El email debe tener un formato válido."
+                                                    }
+                                                },
+                                                "telefono": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo teléfono es obligatorio."
+                                                    }
+                                                },
+                                                "mensaje": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo mensaje es obligatorio."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/mensajes-contacto/{id}": {
+            "get": {
+                "tags": [
+                    "Mensajes de Contacto"
+                ],
+                "summary": "Mostrar un mensaje de contacto",
+                "description": "Obtiene los detalles de un mensaje de contacto específico por su ID",
+                "operationId": "60dd8a02feb1972f787639e2d7e20616",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del mensaje de contacto a consultar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mensaje de contacto encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre_apellidos": {
+                                            "type": "string",
+                                            "example": "Juan Carlos García López"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "juan.garcia@ejemplo.com"
+                                        },
+                                        "telefono": {
+                                            "type": "string",
+                                            "example": "+34 612 345 678"
+                                        },
+                                        "mensaje": {
+                                            "type": "string",
+                                            "example": "Hola, me gustaría obtener más información sobre sus servicios..."
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Mensaje de contacto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Mensajes de Contacto"
+                ],
+                "summary": "Actualizar mensaje de contacto",
+                "description": "Actualiza los datos de un mensaje de contacto existente. Solo es necesario enviar los campos que se desean modificar",
+                "operationId": "f6fabedcd04972e79d227571ad14ba98",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del mensaje de contacto a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos del mensaje de contacto a actualizar (solo incluir los campos que se desean modificar)",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre_apellidos": {
+                                        "description": "Nombre completo de la persona que contacta",
+                                        "type": "string",
+                                        "example": "Juan Carlos García López"
+                                    },
+                                    "email": {
+                                        "description": "Dirección de correo electrónico",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "juan.garcia.actualizado@ejemplo.com"
+                                    },
+                                    "telefono": {
+                                        "description": "Número de teléfono de contacto",
+                                        "type": "string",
+                                        "example": "+34 612 345 999"
+                                    },
+                                    "mensaje": {
+                                        "description": "Contenido del mensaje de contacto actualizado",
+                                        "type": "string",
+                                        "example": "Mensaje actualizado con nueva información..."
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "email": "juan.garcia.actualizado@ejemplo.com",
+                                "telefono": "+34 612 345 999"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Mensaje de contacto actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto con ID: 1 actualizado correctamente."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre_apellidos": {
+                                                    "type": "string",
+                                                    "example": "Juan Carlos García López"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "juan.garcia.actualizado@ejemplo.com"
+                                                },
+                                                "telefono": {
+                                                    "type": "string",
+                                                    "example": "+34 612 345 999"
+                                                },
+                                                "mensaje": {
+                                                    "type": "string",
+                                                    "example": "Hola, me gustaría obtener más información sobre sus servicios..."
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-15T10:30:00.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-07-10T17:15:00.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Errores de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error de validación."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "nombre_apellidos": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El nombre y apellidos debe ser texto válido."
+                                                    }
+                                                },
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El email debe tener un formato válido."
+                                                    }
+                                                },
+                                                "telefono": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El teléfono debe ser texto válido."
+                                                    }
+                                                },
+                                                "mensaje": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El mensaje debe ser texto válido."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Mensaje de contacto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto con ID: 1 no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Mensajes de Contacto"
+                ],
+                "summary": "Eliminar mensaje de contacto",
+                "description": "Elimina un mensaje de contacto del sistema de forma permanente",
+                "operationId": "acbd75f7bbad43f0a2f4f8c6f700bbdc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del mensaje de contacto a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mensaje de contacto eliminado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto con ID: 1 borrado correctamente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Mensaje de contacto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto con ID: 1 no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/noticias": {
             "get": {
                 "tags": [
@@ -711,6 +2338,18 @@
         }
     },
     "tags": [
+        {
+            "name": "Calculadora Ahorros",
+            "description": "Gestión de calculadoras de ahorros de usuarios con el método 50/30/20, calculado en tiempo de ejecución. Se crea automáticamente cuando se crea un usuario, por lo que no necesitamos POST"
+        },
+        {
+            "name": "Empleados",
+            "description": "Gestión de empleados"
+        },
+        {
+            "name": "Mensajes de Contacto",
+            "description": "Gestión de todas las solicitudes de contacto del formulario web"
+        },
         {
             "name": "Autenticación",
             "description": "Autenticación"
