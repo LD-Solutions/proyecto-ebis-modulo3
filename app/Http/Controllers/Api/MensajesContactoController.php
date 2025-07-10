@@ -23,7 +23,7 @@ class MensajesContactoController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('auth:sanctum', except: ['index', 'store', 'show', 'destroy', 'update']),
+            new Middleware('auth:sanctum', except: ['store']),
         ];
     }
 
@@ -33,6 +33,7 @@ class MensajesContactoController extends Controller implements HasMiddleware
      *     tags={"Mensajes de Contacto"},
      *     summary="Listar mensajes de contacto",
      *     description="Obtiene la lista completa de mensajes de contacto registrados en el sistema",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="Listado completo de mensajes de contacto",
@@ -67,6 +68,13 @@ class MensajesContactoController extends Controller implements HasMiddleware
      *                     "updated_at": "2024-01-16T14:25:00.000000Z"
      *                 }
      *             }
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="No autorizado",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Unauthenticated.")
      *         )
      *     )
      * )
@@ -212,6 +220,7 @@ class MensajesContactoController extends Controller implements HasMiddleware
      *     tags={"Mensajes de Contacto"},
      *     summary="Mostrar un mensaje de contacto",
      *     description="Obtiene los detalles de un mensaje de contacto específico por su ID",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -238,6 +247,13 @@ class MensajesContactoController extends Controller implements HasMiddleware
      *         @OA\JsonContent(
      *             @OA\Property(property="error", type="string", example="Mensaje de contacto no encontrado")
      *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="No autorizado",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Unauthenticated.")
+     *         )
      *     )
      * )
      */
@@ -259,6 +275,7 @@ class MensajesContactoController extends Controller implements HasMiddleware
      *     tags={"Mensajes de Contacto"},
      *     summary="Actualizar mensaje de contacto",
      *     description="Actualiza los datos de un mensaje de contacto existente. Solo es necesario enviar los campos que se desean modificar",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -344,6 +361,13 @@ class MensajesContactoController extends Controller implements HasMiddleware
      *         @OA\JsonContent(
      *             @OA\Property(property="error", type="string", example="Mensaje de contacto con ID: 1 no encontrado")
      *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="No autorizado",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Unauthenticated.")
+     *         )
      *     )
      * )
      */
@@ -398,6 +422,7 @@ class MensajesContactoController extends Controller implements HasMiddleware
      *     tags={"Mensajes de Contacto"},
      *     summary="Eliminar mensaje de contacto",
      *     description="Elimina un mensaje de contacto del sistema de forma permanente",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -417,6 +442,13 @@ class MensajesContactoController extends Controller implements HasMiddleware
      *         description="Mensaje de contacto no encontrado",
      *         @OA\JsonContent(
      *             @OA\Property(property="error", type="string", example="Mensaje de contacto con ID: 1 no encontrado")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="No autorizado",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Unauthenticated.")
      *         )
      *     )
      * )
