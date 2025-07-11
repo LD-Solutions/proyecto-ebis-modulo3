@@ -120,7 +120,7 @@ return [
             'username' => env('MONGODB_USERNAME'),
             'password' => env('MONGODB_PASSWORD'),
             'options' => [
-                'database' => env('MONGODB_DATABASE', 'finsmart_formacion'),
+                'database' => env('MONGODB_AUTH_DB', 'admin'),
             ],
         ],
 

@@ -9,8 +9,6 @@ class CalculadoraAhorros extends Model
 {
     /** @use HasFactory<\Database\Factories\CalculadoraAhorrosFactory> */
     use HasFactory;
-
-    protected $connection = 'sqlite';
     protected $table = 'calculadora_ahorros';
 
     protected $fillable = [

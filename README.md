@@ -5,8 +5,8 @@
 
 [![Laravel](https://img.shields.io/badge/Laravel-12.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
 [![MongoDB](https://img.shields.io/badge/MongoDB-5.4-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://mongodb.com)
-[![SQLite](https://img.shields.io/badge/SQLite-3.0-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 
 [![API Documentation](https://img.shields.io/badge/API_Docs-Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black)](http://localhost:8000/api/documentation)
@@ -59,7 +59,7 @@
 
 | Frontend | Backend | Base de Datos | Herramientas |
 |:--------:|:-------:|:-------------:|:------------:|
-| ![Tailwind](https://img.shields.io/badge/-Tailwind-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white) | ![Laravel](https://img.shields.io/badge/-Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white) | ![SQLite](https://img.shields.io/badge/-SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white) | ![Swagger](https://img.shields.io/badge/-Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black) |
+| ![Tailwind](https://img.shields.io/badge/-Tailwind-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white) | ![Laravel](https://img.shields.io/badge/-Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white) | ![MySQL](https://img.shields.io/badge/-MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white) | ![Swagger](https://img.shields.io/badge/-Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black) |
 | ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) | ![PHP](https://img.shields.io/badge/-PHP_8.2+-777BB4?style=flat-square&logo=php&logoColor=white) | ![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white) | ![Composer](https://img.shields.io/badge/-Composer-885630?style=flat-square&logo=composer&logoColor=white) |
 
 </div>
@@ -69,7 +69,7 @@
 ## 📋 Instalación Rápida
 
 <details>
-<summary><b>🚀 Instalación en 4 pasos</b></summary>
+<summary><b>🚀 Instalación en 5 pasos</b></summary>
 
 ### **Paso 1** - Clonar proyecto
 ```bash
@@ -86,8 +86,7 @@ php artisan key:generate
 
 ### **Paso 3** - Base de datos
 ```bash
-# SQLite (por defecto)
-touch database/database.sqlite
+# Crear base de datos y poblar con datos fake
 php artisan migrate
 php artisan db:seed
 ```
@@ -319,7 +318,7 @@ proyecto-ebis-modulo2/
 │       ├── PortfolioResource.php       # API responses optimizadas
 │       └── IndexFundResource.php
 ├── config/
-│   ├── database.php                    # SQLite + MongoDB
+│   ├── database.php                    # MySQL + MongoDB
 │   └── l5-swagger.php                  # Documentación API
 ├── database/
 │   ├── migrations/                     # Esquemas de base de datos
@@ -338,7 +337,7 @@ proyecto-ebis-modulo2/
 |-----------|------------|---------|-----|
 | **Backend** | Laravel | 12.0 | Framework principal |
 | **Autenticación** | Laravel Sanctum | 4.1 | Tokens API |
-| **Base de Datos** | SQLite | - | Desarrollo |
+| **Base de Datos** | MySQL | 8.0 | Base de datos principal |
 | **NoSQL** | MongoDB | 5.4 | Módulo Formación |
 | **Documentación** | L5-Swagger | 9.0 | API Docs |
 | **Frontend** | Tailwind CSS | CDN | UI moderna |
@@ -350,9 +349,14 @@ proyecto-ebis-modulo2/
 
 ### 🔧 Variables de Entorno
 
-**Base de datos principal (SQLite):**
+**Base de datos principal (MySQL):**
 ```env
-DB_CONNECTION=sqlite
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=finsmart_api
+DB_USERNAME=finsmart_user
+DB_PASSWORD=password
 ```
 
 **MongoDB (Formación):**
@@ -456,7 +460,7 @@ php artisan db:seed --class=CalculadoraAhorrosSeeder
 ```
 ✅ API REST Completa
 ✅ 7 Módulos Integrados  
-✅ MongoDB + SQLite
+✅ MySQL + MongoDB
 ✅ UI Moderna Tailwind
 ✅ Documentación Swagger
 ```

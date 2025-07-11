@@ -9,7 +9,6 @@ class Empleado extends Model
 {
     /** @use HasFactory<\Database\Factories\EmpleadoFactory> */
     use HasFactory;
-    protected $connection = 'sqlite';
     protected $table = 'empleados';
 
     protected $fillable = [

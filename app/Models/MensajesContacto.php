@@ -9,7 +9,6 @@ class MensajesContacto extends Model
 {
     /** @use HasFactory<\Database\Factories\MensajesContactoFactory> */
     use HasFactory;
-    protected $connection = 'sqlite';
     protected $table = 'mensajes_contacto';
 
     protected $fillable = [
