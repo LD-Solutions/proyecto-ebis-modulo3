@@ -349,16 +349,6 @@ proyecto-ebis-modulo2/
 
 ### 🔧 Variables de Entorno
 
-**Base de datos principal (MySQL):**
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=finsmart_api
-DB_USERNAME=finsmart_user
-DB_PASSWORD=password
-```
-
 **MongoDB (Formación):**
 ```env
 MONGODB_HOST=127.0.0.1
@@ -411,7 +401,7 @@ php artisan make:controller Api/NuevoController
 ```bash
 php artisan db:seed --class=NoticiasSeeder
 php artisan db:seed --class=EmpleadosSeeder
-php artisan db:seed --class=CalculadoraAhorrosSeeder
+php artisan db:seed --class=MensajesContactoSeeder
 ```
 
 ---
