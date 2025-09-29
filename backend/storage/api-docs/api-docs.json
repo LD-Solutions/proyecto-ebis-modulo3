@@ -1,0 +1,3432 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Finsmart API",
+        "description": "API REST para aplicaciones financieras con autenticación",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Servidor de desarrollo"
+        }
+    ],
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Autenticación"
+                ],
+                "summary": "Iniciar sesión",
+                "description": "Autenticar usuario y obtener token de acceso",
+                "operationId": "222b2625838e3c57e017987f73598fda",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login exitoso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Test User"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "test@example.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "1|abc123..."
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "Bearer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Credenciales incorrectas"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Autenticación"
+                ],
+                "summary": "Cerrar sesión",
+                "description": "Revocar token de acceso actual",
+                "operationId": "ad65cbbd4e9f201619eae184a5961a98",
+                "responses": {
+                    "200": {
+                        "description": "Logout exitoso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully logged out"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "Autenticación"
+                ],
+                "summary": "Obtener usuario autenticado",
+                "description": "Obtener información del usuario actualmente autenticado",
+                "operationId": "961ad57987905b44ae2e2f40b82e76de",
+                "responses": {
+                    "200": {
+                        "description": "Usuario autenticado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Test User"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "test@example.com"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/calculadora-ahorros": {
+            "get": {
+                "tags": [
+                    "Calculadora Ahorros"
+                ],
+                "summary": "Listar todas las calculadoras de ahorros",
+                "description": "Obtiene una lista de todas las calculadoras de ahorros registradas con campos calculados",
+                "operationId": "indexCalculadoraAhorros",
+                "responses": {
+                    "200": {
+                        "description": "Lista de calculadoras obtenida exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "ingreso_mensual": {
+                                                "type": "number",
+                                                "format": "decimal",
+                                                "example": 2500.5
+                                            },
+                                            "id_usuario": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "necesidad": {
+                                                "description": "50% del ingreso mensual",
+                                                "type": "number",
+                                                "format": "decimal",
+                                                "example": 1250.25
+                                            },
+                                            "ocio": {
+                                                "description": "30% del ingreso mensual",
+                                                "type": "number",
+                                                "format": "decimal",
+                                                "example": 750.15
+                                            },
+                                            "ahorros": {
+                                                "description": "20% del ingreso mensual",
+                                                "type": "number",
+                                                "format": "decimal",
+                                                "example": 500.1
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-07-10T12:00:00.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-07-10T12:00:00.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/calculadora-ahorros/{id}": {
+            "get": {
+                "tags": [
+                    "Calculadora Ahorros"
+                ],
+                "summary": "Mostrar calculadora por ID de usuario",
+                "description": "Obtiene los detalles de la calculadora de ahorros de un usuario específico usando el ID del usuario",
+                "operationId": "showCalculadoraAhorros",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario propietario de la calculadora",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Calculadora encontrada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "ingreso_mensual": {
+                                            "type": "number",
+                                            "format": "decimal",
+                                            "example": 2500.5
+                                        },
+                                        "id_usuario": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "necesidad": {
+                                            "description": "50% del ingreso mensual",
+                                            "type": "number",
+                                            "format": "decimal",
+                                            "example": 1250.25
+                                        },
+                                        "ocio": {
+                                            "description": "30% del ingreso mensual",
+                                            "type": "number",
+                                            "format": "decimal",
+                                            "example": 750.15
+                                        },
+                                        "ahorros": {
+                                            "description": "20% del ingreso mensual",
+                                            "type": "number",
+                                            "format": "decimal",
+                                            "example": 500.1
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-07-10T12:00:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-07-10T12:00:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario o calculadora no encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Usuario no encontrado"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Este usuario no tiene calculadora de ahorros"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Calculadora Ahorros"
+                ],
+                "summary": "Actualizar calculadora por ID de usuario",
+                "description": "Actualiza la calculadora de ahorros de un usuario específico usando el ID del usuario",
+                "operationId": "updateCalculadoraAhorros",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario propietario de la calculadora",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos para actualizar la calculadora",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ingreso_mensual": {
+                                        "description": "Ingreso mensual del usuario (opcional)",
+                                        "type": "number",
+                                        "format": "decimal",
+                                        "example": 3000.75
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Calculadora actualizada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "ingreso_mensual": {
+                                            "type": "number",
+                                            "format": "decimal",
+                                            "example": 3000.75
+                                        },
+                                        "id_usuario": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-07-10T12:00:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-07-10T12:30:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario o calculadora no encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Usuario no encontrado"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Este usuario no tiene calculadora de ahorros"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error de validación o datos vacíos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "ingreso_mensual": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El ingreso mensual debe ser un número."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "error": {
+                                                    "type": "string",
+                                                    "example": "Debes enviar al menos un campo correcto para actualizar."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Calculadora Ahorros"
+                ],
+                "summary": "Resetear calculadora por ID de usuario",
+                "description": "Resetea la calculadora de ahorros de un usuario específico (pone el ingreso mensual en 0) usando el ID del usuario",
+                "operationId": "destroyCalculadoraAhorros",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario propietario de la calculadora",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Calculadora reseteada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Calculadora reseteada correctamente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario o calculadora no encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Usuario no encontrado"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Este usuario no tiene calculadora de ahorros"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/empleados": {
+            "get": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Listar empleados",
+                "description": "Obtiene la lista completa de empleados registrados en el sistema",
+                "operationId": "a800bff17f5448b9b337f4bb18875c96",
+                "responses": {
+                    "200": {
+                        "description": "Listado completo de empleados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "Juan Carlos"
+                                            },
+                                            "apellido": {
+                                                "type": "string",
+                                                "example": "García López"
+                                            },
+                                            "cargo": {
+                                                "type": "string",
+                                                "example": "Desarrollador Full Stack"
+                                            },
+                                            "imagen_url": {
+                                                "type": "string",
+                                                "example": "https://ejemplo.com/fotos/juan-garcia.jpg"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-01-15T10:30:00.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-01-15T10:30:00.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "nombre": "Juan Carlos",
+                                        "apellido": "García López",
+                                        "cargo": "Desarrollador Full Stack",
+                                        "imagen_url": "https://ejemplo.com/fotos/juan-garcia.jpg",
+                                        "created_at": "2024-01-15T10:30:00.000000Z",
+                                        "updated_at": "2024-01-15T10:30:00.000000Z"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "nombre": "María Elena",
+                                        "apellido": "Rodríguez Pérez",
+                                        "cargo": "Diseñadora UX/UI",
+                                        "imagen_url": "https://ejemplo.com/fotos/maria-rodriguez.jpg",
+                                        "created_at": "2024-01-16T14:25:00.000000Z",
+                                        "updated_at": "2024-01-16T14:25:00.000000Z"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Crear empleado",
+                "description": "Crea un nuevo empleado en el sistema",
+                "operationId": "bdecf812fb6a4e706242c70449ed26af",
+                "requestBody": {
+                    "description": "Datos del empleado a crear",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "apellido",
+                                    "cargo"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "description": "Nombre del empleado",
+                                        "type": "string",
+                                        "example": "Ana Patricia"
+                                    },
+                                    "apellido": {
+                                        "description": "Apellido del empleado",
+                                        "type": "string",
+                                        "example": "Martínez Silva"
+                                    },
+                                    "cargo": {
+                                        "description": "Cargo o rol dentro de la empresa",
+                                        "type": "string",
+                                        "example": "Gerente de Proyectos"
+                                    },
+                                    "imagen_url": {
+                                        "description": "URL de la imagen de perfil (opcional)",
+                                        "type": "string",
+                                        "format": "uri",
+                                        "example": "https://ejemplo.com/fotos/ana-martinez.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "nombre": "Ana Patricia",
+                                "apellido": "Martínez Silva",
+                                "cargo": "Gerente de Proyectos",
+                                "imagen_url": "https://ejemplo.com/fotos/ana-martinez.jpg"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Empleado creado satisfactoriamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 3
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Ana Patricia"
+                                        },
+                                        "apellido": {
+                                            "type": "string",
+                                            "example": "Martínez Silva"
+                                        },
+                                        "cargo": {
+                                            "type": "string",
+                                            "example": "Gerente de Proyectos"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://ejemplo.com/fotos/ana-martinez.jpg"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-07-10T16:45:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-07-10T16:45:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Errores de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "nombre": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "El campo nombre es obligatorio."
+                                            }
+                                        },
+                                        "apellido": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "El campo apellido es obligatorio."
+                                            }
+                                        },
+                                        "cargo": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "El campo cargo es obligatorio."
+                                            }
+                                        },
+                                        "imagen_url": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "El campo imagen_url debe ser una URL válida."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/empleados/{id}": {
+            "get": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Mostrar empleado",
+                "description": "Obtiene los detalles de un empleado específico por su ID",
+                "operationId": "d0780c68ae5f4b9eeea9923b3be899b1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del empleado a consultar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Empleado encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Juan Carlos"
+                                        },
+                                        "apellido": {
+                                            "type": "string",
+                                            "example": "García López"
+                                        },
+                                        "cargo": {
+                                            "type": "string",
+                                            "example": "Desarrollador Full Stack"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://ejemplo.com/fotos/juan-garcia.jpg"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Empleado no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Empleado no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Actualizar empleado",
+                "description": "Actualiza los datos de un empleado existente. Solo es necesario enviar los campos que se desean modificar",
+                "operationId": "bb1fa3039e1b779e3cd2541a00fdc881",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del empleado a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos del empleado a actualizar (solo incluir los campos que se desean modificar)",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "description": "Nombre del empleado",
+                                        "type": "string",
+                                        "example": "Juan Carlos"
+                                    },
+                                    "apellido": {
+                                        "description": "Apellido del empleado",
+                                        "type": "string",
+                                        "example": "García López"
+                                    },
+                                    "cargo": {
+                                        "description": "Cargo o rol dentro de la empresa",
+                                        "type": "string",
+                                        "example": "Senior Full Stack Developer"
+                                    },
+                                    "imagen_url": {
+                                        "description": "URL de la imagen de perfil",
+                                        "type": "string",
+                                        "format": "uri",
+                                        "example": "https://ejemplo.com/fotos/juan-garcia-nuevo.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "cargo": "Senior Full Stack Developer",
+                                "imagen_url": "https://ejemplo.com/fotos/juan-garcia-nuevo.jpg"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Empleado actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Juan Carlos"
+                                        },
+                                        "apellido": {
+                                            "type": "string",
+                                            "example": "García López"
+                                        },
+                                        "cargo": {
+                                            "type": "string",
+                                            "example": "Senior Full Stack Developer"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://ejemplo.com/fotos/juan-garcia-nuevo.jpg"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-07-10T17:15:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Errores de validación o no se enviaron campos válidos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "error": {
+                                                    "type": "string",
+                                                    "example": "Debes enviar al menos un campo correcto para actualizar."
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre debe ser texto."
+                                                    }
+                                                },
+                                                "apellido": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo apellido debe ser texto."
+                                                    }
+                                                },
+                                                "cargo": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo cargo debe ser texto."
+                                                    }
+                                                },
+                                                "imagen_url": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo imagen_url debe ser una URL válida."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Empleado no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Empleado no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Empleados"
+                ],
+                "summary": "Eliminar empleado",
+                "description": "Elimina un empleado del sistema de forma permanente",
+                "operationId": "024642145d28c0587edd6fde14218580",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del empleado a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Empleado eliminado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Empleado eliminado correctamente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Empleado no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Empleado no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/formaciones": {
+            "get": {
+                "tags": [
+                    "Formación"
+                ],
+                "summary": "Listar contenido de formación",
+                "description": "Obtener lista paginada de cursos, videos, libros y webinars",
+                "operationId": "8d395b687d27269c46d40307481318f7",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número de página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Elementos por página (máximo 50)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "tipo",
+                        "in": "query",
+                        "description": "Filtrar por tipo de contenido",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "curso",
+                                "video",
+                                "libro",
+                                "webinar"
+                            ],
+                            "example": "libro"
+                        }
+                    },
+                    {
+                        "name": "categoria",
+                        "in": "query",
+                        "description": "Filtrar por categoría",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "finanzas"
+                        }
+                    },
+                    {
+                        "name": "nivel",
+                        "in": "query",
+                        "description": "Filtrar por nivel",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "principiante",
+                                "intermedio",
+                                "avanzado"
+                            ],
+                            "example": "principiante"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de contenido de formación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "titulo": {
+                                                        "type": "string",
+                                                        "example": "Introducción a las Inversiones"
+                                                    },
+                                                    "descripcion": {
+                                                        "type": "string",
+                                                        "example": "Curso básico sobre inversiones..."
+                                                    },
+                                                    "instructor": {
+                                                        "type": "string",
+                                                        "example": "Juan Pérez"
+                                                    },
+                                                    "precio": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 99.99
+                                                    },
+                                                    "tipo": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "curso",
+                                                            "video",
+                                                            "libro",
+                                                            "webinar"
+                                                        ],
+                                                        "example": "curso"
+                                                    },
+                                                    "categoria": {
+                                                        "type": "string",
+                                                        "example": "finanzas"
+                                                    },
+                                                    "nivel": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "principiante",
+                                                            "intermedio",
+                                                            "avanzado"
+                                                        ],
+                                                        "example": "principiante"
+                                                    },
+                                                    "duracion_horas": {
+                                                        "type": "integer",
+                                                        "example": 20,
+                                                        "nullable": true
+                                                    },
+                                                    "fecha_inicio": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-01-15T10:30:00Z",
+                                                        "nullable": true
+                                                    },
+                                                    "archivo_path": {
+                                                        "type": "string",
+                                                        "example": "libros/introduccion-inversiones.txt",
+                                                        "nullable": true
+                                                    },
+                                                    "paginas": {
+                                                        "type": "integer",
+                                                        "example": 150,
+                                                        "nullable": true
+                                                    },
+                                                    "url_video": {
+                                                        "type": "string",
+                                                        "example": "https://youtube.com/watch?v=abc123",
+                                                        "nullable": true
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "links": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 25
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Formación"
+                ],
+                "summary": "Crear contenido de formación",
+                "description": "Crear nuevo curso, video, libro o webinar (requiere autenticación)",
+                "operationId": "2a53afeb7650c1dae4d80a95779139d4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titulo",
+                                    "descripcion",
+                                    "instructor",
+                                    "precio",
+                                    "tipo",
+                                    "categoria",
+                                    "nivel"
+                                ],
+                                "properties": {
+                                    "titulo": {
+                                        "type": "string",
+                                        "example": "Curso de Trading Avanzado"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Aprende estrategias avanzadas de trading..."
+                                    },
+                                    "instructor": {
+                                        "type": "string",
+                                        "example": "Ana García"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 149.99
+                                    },
+                                    "tipo": {
+                                        "type": "string",
+                                        "enum": [
+                                            "curso",
+                                            "video",
+                                            "libro",
+                                            "webinar"
+                                        ],
+                                        "example": "curso"
+                                    },
+                                    "categoria": {
+                                        "type": "string",
+                                        "example": "trading"
+                                    },
+                                    "nivel": {
+                                        "type": "string",
+                                        "enum": [
+                                            "principiante",
+                                            "intermedio",
+                                            "avanzado"
+                                        ],
+                                        "example": "avanzado"
+                                    },
+                                    "duracion_horas": {
+                                        "type": "integer",
+                                        "example": 25,
+                                        "nullable": true
+                                    },
+                                    "fecha_inicio": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-02-01T09:00:00Z",
+                                        "nullable": true
+                                    },
+                                    "archivo_path": {
+                                        "type": "string",
+                                        "example": "libros/trading-avanzado.pdf",
+                                        "nullable": true
+                                    },
+                                    "paginas": {
+                                        "type": "integer",
+                                        "example": 200,
+                                        "nullable": true
+                                    },
+                                    "url_video": {
+                                        "type": "string",
+                                        "example": "https://youtube.com/watch?v=xyz789",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Contenido de formación creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "titulo": {
+                                            "type": "string",
+                                            "example": "Curso de Trading Avanzado"
+                                        },
+                                        "descripcion": {
+                                            "type": "string",
+                                            "example": "Aprende estrategias avanzadas..."
+                                        },
+                                        "instructor": {
+                                            "type": "string",
+                                            "example": "Ana García"
+                                        },
+                                        "precio": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 149.99
+                                        },
+                                        "tipo": {
+                                            "type": "string",
+                                            "example": "curso"
+                                        },
+                                        "categoria": {
+                                            "type": "string",
+                                            "example": "trading"
+                                        },
+                                        "nivel": {
+                                            "type": "string",
+                                            "example": "avanzado"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Errores de validación"
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/formaciones/{id}": {
+            "get": {
+                "tags": [
+                    "Formación"
+                ],
+                "summary": "Mostrar contenido de formación específico",
+                "description": "Obtener detalles de un curso, video, libro o webinar específico",
+                "operationId": "f55f3711c4c256c5b4cbfbca63144fe2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del contenido de formación",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles del contenido de formación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "titulo": {
+                                            "type": "string",
+                                            "example": "Introducción a las Criptomonedas"
+                                        },
+                                        "descripcion": {
+                                            "type": "string",
+                                            "example": "Guía completa sobre el mundo de las criptomonedas..."
+                                        },
+                                        "instructor": {
+                                            "type": "string",
+                                            "example": "Carlos López"
+                                        },
+                                        "precio": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 29.99
+                                        },
+                                        "tipo": {
+                                            "type": "string",
+                                            "example": "libro"
+                                        },
+                                        "categoria": {
+                                            "type": "string",
+                                            "example": "criptomonedas"
+                                        },
+                                        "nivel": {
+                                            "type": "string",
+                                            "example": "principiante"
+                                        },
+                                        "archivo_path": {
+                                            "type": "string",
+                                            "example": "libros/criptomonedas-guia-completa.txt"
+                                        },
+                                        "paginas": {
+                                            "type": "integer",
+                                            "example": 180
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Contenido de formación no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Formación"
+                ],
+                "summary": "Actualizar contenido de formación",
+                "description": "Actualizar curso, video, libro o webinar existente (requiere autenticación)",
+                "operationId": "ad1dab7040f0524ec60542ffe1b7ef9e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del contenido de formación",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "titulo": {
+                                        "type": "string",
+                                        "example": "Curso de Trading Actualizado"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 199.99
+                                    },
+                                    "nivel": {
+                                        "type": "string",
+                                        "enum": [
+                                            "principiante",
+                                            "intermedio",
+                                            "avanzado"
+                                        ],
+                                        "example": "intermedio"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Contenido de formación actualizado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "titulo": {
+                                            "type": "string",
+                                            "example": "Curso de Trading Actualizado"
+                                        },
+                                        "precio": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 199.99
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Contenido de formación no encontrado"
+                    },
+                    "422": {
+                        "description": "Errores de validación"
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Formación"
+                ],
+                "summary": "Eliminar contenido de formación",
+                "description": "Eliminar un curso, video, libro o webinar existente (requiere autenticación)",
+                "operationId": "e663b152656de8395a7fea0330c6d4c2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del contenido de formación",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Contenido de formación eliminado exitosamente"
+                    },
+                    "404": {
+                        "description": "Contenido de formación no encontrado"
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/mensajes-contacto": {
+            "get": {
+                "tags": [
+                    "Mensajes de Contacto"
+                ],
+                "summary": "Listar mensajes de contacto",
+                "description": "Obtiene la lista completa de mensajes de contacto registrados en el sistema",
+                "operationId": "8c6731ef51d852b9dcea6029a0894fc3",
+                "responses": {
+                    "200": {
+                        "description": "Listado completo de mensajes de contacto",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre_apellidos": {
+                                                "type": "string",
+                                                "example": "Juan Carlos García López"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "juan.garcia@ejemplo.com"
+                                            },
+                                            "telefono": {
+                                                "type": "string",
+                                                "example": "+34 612 345 678"
+                                            },
+                                            "mensaje": {
+                                                "type": "string",
+                                                "example": "Hola, me gustaría obtener más información sobre sus servicios..."
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-01-15T10:30:00.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-01-15T10:30:00.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "nombre_apellidos": "Juan Carlos García López",
+                                        "email": "juan.garcia@ejemplo.com",
+                                        "telefono": "+34 612 345 678",
+                                        "mensaje": "Hola, me gustaría obtener más información sobre sus servicios...",
+                                        "created_at": "2024-01-15T10:30:00.000000Z",
+                                        "updated_at": "2024-01-15T10:30:00.000000Z"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "nombre_apellidos": "María Elena Rodríguez Pérez",
+                                        "email": "maria.rodriguez@ejemplo.com",
+                                        "telefono": "+34 687 654 321",
+                                        "mensaje": "Buenos días, quisiera solicitar una cotización para...",
+                                        "created_at": "2024-01-16T14:25:00.000000Z",
+                                        "updated_at": "2024-01-16T14:25:00.000000Z"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Mensajes de Contacto"
+                ],
+                "summary": "Crear mensaje de contacto",
+                "description": "Crea un nuevo mensaje de contacto en el sistema",
+                "operationId": "54e3a3e7aa37f4237cbc97456720c05c",
+                "requestBody": {
+                    "description": "Datos del mensaje de contacto a crear",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre_apellidos",
+                                    "email",
+                                    "telefono",
+                                    "mensaje"
+                                ],
+                                "properties": {
+                                    "nombre_apellidos": {
+                                        "description": "Nombre completo de la persona que contacta",
+                                        "type": "string",
+                                        "example": "Ana Patricia Martínez Silva"
+                                    },
+                                    "email": {
+                                        "description": "Dirección de correo electrónico",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "ana.martinez@ejemplo.com"
+                                    },
+                                    "telefono": {
+                                        "description": "Número de teléfono de contacto",
+                                        "type": "string",
+                                        "example": "+34 699 123 456"
+                                    },
+                                    "mensaje": {
+                                        "description": "Contenido del mensaje de contacto",
+                                        "type": "string",
+                                        "example": "Estoy interesado en sus servicios de desarrollo web. ¿Podrían contactarme para discutir mi proyecto?"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "nombre_apellidos": "Ana Patricia Martínez Silva",
+                                "email": "ana.martinez@ejemplo.com",
+                                "telefono": "+34 699 123 456",
+                                "mensaje": "Estoy interesado en sus servicios de desarrollo web. ¿Podrían contactarme para discutir mi proyecto?"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Mensaje de contacto creado satisfactoriamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto creado exitosamente."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "nombre_apellidos": {
+                                                    "type": "string",
+                                                    "example": "Ana Patricia Martínez Silva"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "ana.martinez@ejemplo.com"
+                                                },
+                                                "telefono": {
+                                                    "type": "string",
+                                                    "example": "+34 699 123 456"
+                                                },
+                                                "mensaje": {
+                                                    "type": "string",
+                                                    "example": "Estoy interesado en sus servicios de desarrollo web. ¿Podrían contactarme para discutir mi proyecto?"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-07-10T16:45:00.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-07-10T16:45:00.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Errores de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error de validación."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "nombre_apellidos": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre y apellidos es obligatorio."
+                                                    }
+                                                },
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El email debe tener un formato válido."
+                                                    }
+                                                },
+                                                "telefono": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo teléfono es obligatorio."
+                                                    }
+                                                },
+                                                "mensaje": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo mensaje es obligatorio."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/mensajes-contacto/{id}": {
+            "get": {
+                "tags": [
+                    "Mensajes de Contacto"
+                ],
+                "summary": "Mostrar un mensaje de contacto",
+                "description": "Obtiene los detalles de un mensaje de contacto específico por su ID",
+                "operationId": "60dd8a02feb1972f787639e2d7e20616",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del mensaje de contacto a consultar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mensaje de contacto encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre_apellidos": {
+                                            "type": "string",
+                                            "example": "Juan Carlos García López"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "juan.garcia@ejemplo.com"
+                                        },
+                                        "telefono": {
+                                            "type": "string",
+                                            "example": "+34 612 345 678"
+                                        },
+                                        "mensaje": {
+                                            "type": "string",
+                                            "example": "Hola, me gustaría obtener más información sobre sus servicios..."
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Mensaje de contacto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Mensajes de Contacto"
+                ],
+                "summary": "Actualizar mensaje de contacto",
+                "description": "Actualiza los datos de un mensaje de contacto existente. Solo es necesario enviar los campos que se desean modificar",
+                "operationId": "f6fabedcd04972e79d227571ad14ba98",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del mensaje de contacto a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos del mensaje de contacto a actualizar (solo incluir los campos que se desean modificar)",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre_apellidos": {
+                                        "description": "Nombre completo de la persona que contacta",
+                                        "type": "string",
+                                        "example": "Juan Carlos García López"
+                                    },
+                                    "email": {
+                                        "description": "Dirección de correo electrónico",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "juan.garcia.actualizado@ejemplo.com"
+                                    },
+                                    "telefono": {
+                                        "description": "Número de teléfono de contacto",
+                                        "type": "string",
+                                        "example": "+34 612 345 999"
+                                    },
+                                    "mensaje": {
+                                        "description": "Contenido del mensaje de contacto actualizado",
+                                        "type": "string",
+                                        "example": "Mensaje actualizado con nueva información..."
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "email": "juan.garcia.actualizado@ejemplo.com",
+                                "telefono": "+34 612 345 999"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Mensaje de contacto actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto con ID: 1 actualizado correctamente."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre_apellidos": {
+                                                    "type": "string",
+                                                    "example": "Juan Carlos García López"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "juan.garcia.actualizado@ejemplo.com"
+                                                },
+                                                "telefono": {
+                                                    "type": "string",
+                                                    "example": "+34 612 345 999"
+                                                },
+                                                "mensaje": {
+                                                    "type": "string",
+                                                    "example": "Hola, me gustaría obtener más información sobre sus servicios..."
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-15T10:30:00.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-07-10T17:15:00.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Errores de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error de validación."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "nombre_apellidos": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El nombre y apellidos debe ser texto válido."
+                                                    }
+                                                },
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El email debe tener un formato válido."
+                                                    }
+                                                },
+                                                "telefono": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El teléfono debe ser texto válido."
+                                                    }
+                                                },
+                                                "mensaje": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El mensaje debe ser texto válido."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Mensaje de contacto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto con ID: 1 no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Mensajes de Contacto"
+                ],
+                "summary": "Eliminar mensaje de contacto",
+                "description": "Elimina un mensaje de contacto del sistema de forma permanente",
+                "operationId": "acbd75f7bbad43f0a2f4f8c6f700bbdc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del mensaje de contacto a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mensaje de contacto eliminado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto con ID: 1 borrado correctamente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Mensaje de contacto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Mensaje de contacto con ID: 1 no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/noticias": {
+            "get": {
+                "tags": [
+                    "Noticias"
+                ],
+                "summary": "Listar todas las noticias",
+                "description": "Obtener lista paginada de noticias publicadas",
+                "operationId": "6ddae168a9197d8ea5be0fc4760517d2",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número de página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Elementos por página (máximo 50)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "categoria",
+                        "in": "query",
+                        "description": "Filtrar por categoría",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "tecnologia"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de noticias",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "titulo": {
+                                                        "type": "string",
+                                                        "example": "Título de la noticia"
+                                                    },
+                                                    "contenido": {
+                                                        "type": "string",
+                                                        "example": "Contenido de la noticia..."
+                                                    },
+                                                    "autor": {
+                                                        "type": "string",
+                                                        "example": "Juan Pérez"
+                                                    },
+                                                    "categoria": {
+                                                        "type": "string",
+                                                        "example": "tecnologia"
+                                                    },
+                                                    "imagen_url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/image.jpg"
+                                                    },
+                                                    "fecha_publicacion": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-01-15T10:30:00Z"
+                                                    },
+                                                    "publicado": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "links": {
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Noticias"
+                ],
+                "summary": "Crear nueva noticia",
+                "description": "Crear una nueva noticia (requiere autenticación)",
+                "operationId": "70d8ebcd3fb5cd45c7d1c30b818e2ef2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titulo",
+                                    "contenido",
+                                    "autor",
+                                    "categoria"
+                                ],
+                                "properties": {
+                                    "titulo": {
+                                        "type": "string",
+                                        "example": "Nueva noticia importante"
+                                    },
+                                    "contenido": {
+                                        "type": "string",
+                                        "example": "Contenido completo de la noticia..."
+                                    },
+                                    "autor": {
+                                        "type": "string",
+                                        "example": "Juan Pérez"
+                                    },
+                                    "categoria": {
+                                        "type": "string",
+                                        "example": "tecnologia"
+                                    },
+                                    "imagen_url": {
+                                        "type": "string",
+                                        "example": "https://example.com/image.jpg"
+                                    },
+                                    "fecha_publicacion": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-01-15T10:30:00Z"
+                                    },
+                                    "publicado": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Noticia creada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "titulo": {
+                                            "type": "string",
+                                            "example": "Nueva noticia importante"
+                                        },
+                                        "contenido": {
+                                            "type": "string",
+                                            "example": "Contenido completo de la noticia..."
+                                        },
+                                        "autor": {
+                                            "type": "string",
+                                            "example": "Juan Pérez"
+                                        },
+                                        "categoria": {
+                                            "type": "string",
+                                            "example": "tecnologia"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://example.com/image.jpg"
+                                        },
+                                        "fecha_publicacion": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00Z"
+                                        },
+                                        "publicado": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Errores de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/noticias/{id}": {
+            "get": {
+                "tags": [
+                    "Noticias"
+                ],
+                "summary": "Mostrar noticia específica",
+                "description": "Obtener detalles de una noticia específica",
+                "operationId": "e5a04b430d126c8bef506708cc923856",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la noticia",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles de la noticia",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "titulo": {
+                                            "type": "string",
+                                            "example": "Título de la noticia"
+                                        },
+                                        "contenido": {
+                                            "type": "string",
+                                            "example": "Contenido completo de la noticia..."
+                                        },
+                                        "autor": {
+                                            "type": "string",
+                                            "example": "Juan Pérez"
+                                        },
+                                        "categoria": {
+                                            "type": "string",
+                                            "example": "tecnologia"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://example.com/image.jpg"
+                                        },
+                                        "fecha_publicacion": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00Z"
+                                        },
+                                        "publicado": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Noticia no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Noticia no encontrada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Noticias"
+                ],
+                "summary": "Actualizar noticia",
+                "description": "Actualizar una noticia existente (requiere autenticación)",
+                "operationId": "46063efbde1d8d81d595cbe3658ef4d8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la noticia",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "titulo": {
+                                        "type": "string",
+                                        "example": "Título actualizado"
+                                    },
+                                    "contenido": {
+                                        "type": "string",
+                                        "example": "Contenido actualizado..."
+                                    },
+                                    "autor": {
+                                        "type": "string",
+                                        "example": "Juan Pérez"
+                                    },
+                                    "categoria": {
+                                        "type": "string",
+                                        "example": "tecnologia"
+                                    },
+                                    "imagen_url": {
+                                        "type": "string",
+                                        "example": "https://example.com/image.jpg"
+                                    },
+                                    "fecha_publicacion": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-01-15T10:30:00Z"
+                                    },
+                                    "publicado": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Noticia actualizada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "titulo": {
+                                            "type": "string",
+                                            "example": "Título actualizado"
+                                        },
+                                        "contenido": {
+                                            "type": "string",
+                                            "example": "Contenido actualizado..."
+                                        },
+                                        "autor": {
+                                            "type": "string",
+                                            "example": "Juan Pérez"
+                                        },
+                                        "categoria": {
+                                            "type": "string",
+                                            "example": "tecnologia"
+                                        },
+                                        "imagen_url": {
+                                            "type": "string",
+                                            "example": "https://example.com/image.jpg"
+                                        },
+                                        "fecha_publicacion": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-15T10:30:00Z"
+                                        },
+                                        "publicado": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Noticia no encontrada"
+                    },
+                    "422": {
+                        "description": "Errores de validación"
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Noticias"
+                ],
+                "summary": "Eliminar noticia",
+                "description": "Eliminar una noticia existente (requiere autenticación)",
+                "operationId": "bf9fdf08bd9f1ed07f2a0affa7e1e9bd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la noticia",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Noticia eliminada exitosamente"
+                    },
+                    "404": {
+                        "description": "Noticia no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Noticia no encontrada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/portfolios": {
+            "get": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "summary": "Obtener resumen del portafolio del usuario",
+                "description": "Retorna el balance, valor total del portafolio, inversión total, ganancia/pérdida y todas las posiciones del usuario autenticado",
+                "operationId": "a968cc4c3dfe56d0989853fbf5afba0e",
+                "responses": {
+                    "200": {
+                        "description": "Resumen del portafolio obtenido exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "balance": {
+                                            "description": "Balance disponible del usuario",
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 8500
+                                        },
+                                        "total_portfolio_value": {
+                                            "description": "Valor total actual del portafolio",
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 1520
+                                        },
+                                        "total_invested": {
+                                            "description": "Total invertido",
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 1500
+                                        },
+                                        "total_profit_loss": {
+                                            "description": "Ganancia o pérdida total",
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 20
+                                        },
+                                        "holdings": {
+                                            "description": "Lista de posiciones en el portafolio",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "symbol": {
+                                                        "type": "string",
+                                                        "example": "VTIAX"
+                                                    },
+                                                    "shares": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 10.5
+                                                    },
+                                                    "purchase_price": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 142.86
+                                                    },
+                                                    "current_value": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 1520
+                                                    },
+                                                    "profit_loss": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 20
+                                                    },
+                                                    "index_fund": {
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Vanguard Total International Stock Index Fund"
+                                                            },
+                                                            "symbol": {
+                                                                "type": "string",
+                                                                "example": "VTIAX"
+                                                            },
+                                                            "current_price": {
+                                                                "type": "number",
+                                                                "format": "float",
+                                                                "example": 144.76
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "summary": "Comprar posición inicial en un fondo índice",
+                "description": "Crea una nueva posición en el portafolio comprando shares de un fondo índice específico",
+                "operationId": "248e01e6f376c1bd7633de19c81e19cd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "symbol",
+                                    "shares"
+                                ],
+                                "properties": {
+                                    "symbol": {
+                                        "description": "Símbolo del fondo índice (case-insensitive)",
+                                        "type": "string",
+                                        "maxLength": 10,
+                                        "example": "tpau"
+                                    },
+                                    "shares": {
+                                        "description": "Número de participaciones a comprar",
+                                        "type": "number",
+                                        "format": "float",
+                                        "minimum": 0.01,
+                                        "example": 10.5
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Posición creada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "symbol": {
+                                            "type": "string",
+                                            "example": "VTIAX"
+                                        },
+                                        "shares": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 10.5
+                                        },
+                                        "purchase_price": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 142.86
+                                        },
+                                        "id_usuario": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "index_fund": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Vanguard Total International Stock Index Fund"
+                                                },
+                                                "current_price": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 142.86
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Fondos insuficientes o posición ya existe",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Insufficient funds"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autenticado"
+                    },
+                    "422": {
+                        "description": "Datos de validación incorrectos"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/portfolios/{id}": {
+            "get": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "summary": "Obtener una posición específica del portafolio",
+                "description": "Retorna los detalles de una posición específica en el portafolio del usuario",
+                "operationId": "d09ea4699d5554b97cf7d37851199f9e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la posición en el portafolio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Posición obtenida exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "symbol": {
+                                            "type": "string",
+                                            "example": "VTIAX"
+                                        },
+                                        "shares": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 10.5
+                                        },
+                                        "purchase_price": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 142.86
+                                        },
+                                        "current_value": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 1520
+                                        },
+                                        "profit_loss": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 20
+                                        },
+                                        "index_fund": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Vanguard Total International Stock Index Fund"
+                                                },
+                                                "current_price": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 144.76
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autenticado"
+                    },
+                    "404": {
+                        "description": "Posición no encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "summary": "Comprar más o vender participaciones de una posición existente",
+                "description": "Permite comprar más participaciones o vender parte de una posición existente en el portafolio",
+                "operationId": "2ddc5b0f4800aea9bb4c4bd7f85e8878",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la posición en el portafolio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "action",
+                                    "shares"
+                                ],
+                                "properties": {
+                                    "action": {
+                                        "description": "Acción a realizar: comprar o vender",
+                                        "type": "string",
+                                        "enum": [
+                                            "buy",
+                                            "sell"
+                                        ],
+                                        "example": "buy"
+                                    },
+                                    "shares": {
+                                        "description": "Número de participaciones a comprar/vender",
+                                        "type": "number",
+                                        "format": "float",
+                                        "minimum": 0.01,
+                                        "example": 5
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Transacción realizada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "symbol": {
+                                            "type": "string",
+                                            "example": "VTIAX"
+                                        },
+                                        "shares": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 15.5
+                                        },
+                                        "purchase_price": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 143.5
+                                        },
+                                        "index_fund": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Vanguard Total International Stock Index Fund"
+                                                },
+                                                "current_price": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 144.76
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Fondos insuficientes o participaciones insuficientes para vender",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Insufficient funds"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autenticado"
+                    },
+                    "404": {
+                        "description": "Posición no encontrada"
+                    },
+                    "422": {
+                        "description": "Datos de validación incorrectos"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "summary": "Vender toda la posición",
+                "description": "Vende completamente una posición del portafolio y elimina la entrada",
+                "operationId": "f7ffda44bae4ab6129efcce1af9c7d8c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la posición en el portafolio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Posición vendida exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Position sold successfully"
+                                        },
+                                        "sale_value": {
+                                            "description": "Valor total de la venta",
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 1520
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autenticado"
+                    },
+                    "404": {
+                        "description": "Posición no encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Autenticación",
+            "description": "Gestión de autenticación de usuarios"
+        },
+        {
+            "name": "Noticias",
+            "description": "Gestión de noticias financieras"
+        },
+        {
+            "name": "Empleados",
+            "description": "Gestión de empleados"
+        },
+        {
+            "name": "Calculadora Ahorros",
+            "description": "Gestión de calculadoras de ahorros de usuarios con el método 50/30/20, calculado en tiempo de ejecución. Se crea automáticamente cuando se crea un usuario, por lo que no necesitamos POST"
+        },
+        {
+            "name": "Mensajes de Contacto",
+            "description": "Gestión de todas las solicitudes de contacto del formulario web"
+        },
+        {
+            "name": "Formación",
+            "description": "Gestión de contenido educativo financiero: cursos, videos, libros y webinars con múltiples tipos de contenido"
+        },
+        {
+            "name": "Portfolio",
+            "description": "Gestión de portafolio de inversiones con fondos índice, valoración dinámica y operaciones de compra/venta"
+        }
+    ]
+}
