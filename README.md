@@ -5,8 +5,8 @@
 
 [![Laravel](https://img.shields.io/badge/Laravel-12.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
-[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
-[![MongoDB](https://img.shields.io/badge/MongoDB-5.4-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://mongodb.com)
+[![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org)
+[![React](https://img.shields.io/badge/React-18+-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 
 [![API Documentation](https://img.shields.io/badge/API_Docs-Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black)](http://localhost:8000/api/documentation)
@@ -59,8 +59,8 @@
 
 | Frontend | Backend | Base de Datos | Herramientas |
 |:--------:|:-------:|:-------------:|:------------:|
-| ![Tailwind](https://img.shields.io/badge/-Tailwind-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white) | ![Laravel](https://img.shields.io/badge/-Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white) | ![MySQL](https://img.shields.io/badge/-MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white) | ![Swagger](https://img.shields.io/badge/-Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black) |
-| ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) | ![PHP](https://img.shields.io/badge/-PHP_8.2+-777BB4?style=flat-square&logo=php&logoColor=white) | ![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white) | ![Composer](https://img.shields.io/badge/-Composer-885630?style=flat-square&logo=composer&logoColor=white) |
+| ![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black) | ![Laravel](https://img.shields.io/badge/-Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white) | ![SQLite](https://img.shields.io/badge/-SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white) | ![Swagger](https://img.shields.io/badge/-Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black) |
+| ![Tailwind](https://img.shields.io/badge/-Tailwind-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white) | ![PHP](https://img.shields.io/badge/-PHP_8.2+-777BB4?style=flat-square&logo=php&logoColor=white) | ![Vite](https://img.shields.io/badge/-Vite-646CFF?style=flat-square&logo=vite&logoColor=white) | ![Composer](https://img.shields.io/badge/-Composer-885630?style=flat-square&logo=composer&logoColor=white) |
 
 </div>
 
@@ -98,7 +98,7 @@ php artisan serve
 
 </details>
 
-> **💡 Tip:** Para MongoDB (módulo Formación), instalar: `sudo apt install mongodb php-mongodb`
+> **💡 Tip:** La base de datos SQLite se crea automáticamente. Frontend React coming soon!
 
 <div align="center">
 
@@ -311,14 +311,14 @@ proyecto-ebis-modulo2/
 │   │   ├── Empleado.php                # RRHH
 │   │   ├── CalculadoraAhorros.php      # Método 50/30/20
 │   │   ├── MensajesContacto.php        # Formulario
-│   │   ├── Formacion.php               # Educación (MongoDB)
+│   │   ├── Formacion.php               # Educación (SQLite)
 │   │   ├── Portfolio.php               # Inversiones
 │   │   └── IndexFund.php               # Fondos índice
 │   └── Http/Resources/
 │       ├── PortfolioResource.php       # API responses optimizadas
 │       └── IndexFundResource.php
 ├── config/
-│   ├── database.php                    # MySQL + MongoDB
+│   ├── database.php                    # SQLite configuration
 │   └── l5-swagger.php                  # Documentación API
 ├── database/
 │   ├── migrations/                     # Esquemas de base de datos
@@ -337,10 +337,10 @@ proyecto-ebis-modulo2/
 |-----------|------------|---------|-----|
 | **Backend** | Laravel | 12.0 | Framework principal |
 | **Autenticación** | Laravel Sanctum | 4.1 | Tokens API |
-| **Base de Datos** | MySQL | 8.0 | Base de datos principal |
-| **NoSQL** | MongoDB | 5.4 | Módulo Formación |
+| **Base de Datos** | SQLite | 3 | Base de datos embebida |
+| **Frontend** | React | 18+ | UI moderna (planned) |
 | **Documentación** | L5-Swagger | 9.0 | API Docs |
-| **Frontend** | Tailwind CSS | CDN | UI moderna |
+| **Styling** | Tailwind CSS | 3.0 | Diseño responsive |
 | **Testing** | PHPUnit | 11.5 | Tests automatizados |
 
 ---
@@ -349,13 +349,10 @@ proyecto-ebis-modulo2/
 
 ### 🔧 Variables de Entorno
 
-**MongoDB (Formación):**
+**Database (SQLite):**
 ```env
-MONGODB_HOST=127.0.0.1
-MONGODB_PORT=27017
-MONGODB_DATABASE=finsmart_formacion
-MONGODB_USERNAME=
-MONGODB_PASSWORD=
+DB_CONNECTION=sqlite
+# DB_DATABASE defaults to database/database.sqlite
 ```
 
 **Swagger:**
@@ -420,7 +417,7 @@ php artisan db:seed --class=MensajesContactoSeeder
 - Balance inicial de $10,000
 - Operaciones de compra/venta
 
-### 🎓 **Plataforma Formación (MongoDB)**
+### 🎓 **Plataforma Formación (SQLite)**
 - Múltiples tipos de contenido
 - Filtrado por categoría y nivel
 - Almacenamiento de archivos
