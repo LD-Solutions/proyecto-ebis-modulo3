@@ -1,22 +1,27 @@
 import React from 'react';
+import styles from './Navbar.module.css';
 
 const Navbar: React.FC = () => {
     return (
-        <nav className="barra-navegacion">
-            <h2>
-                <a href="/">Finsmart</a>
-            </h2>
-            <ul>
-                <li>
-                    <a href="/dashboard">Mi cartera</a>
-                </li>
-                <li>
-                    <a href="/bolsa">Estado de la bolsa</a>
-                </li>
-                <li>
-                    <a href="/conocenos">Conócenos</a>
-                </li>
-            </ul>
+        <nav className={styles.navbar}>
+            <div className={styles.container}>
+                <div className={styles.brand}>
+                    <a href="/" className={styles.logo}>Finsmart</a>
+                </div>
+                <div className={styles.nav}>
+                    <ul className={styles.navList}>
+                        <li className={styles.navItem}>
+                            <a href="/dashboard" className={styles.navLink}>Mi cartera</a>
+                        </li>
+                        <li className={styles.navItem}>
+                            <a href="/bolsa" className={styles.navLink}>Estado de la bolsa</a>
+                        </li>
+                        <li className={styles.navItem}>
+                            <a href="/conocenos" className={styles.navLink}>Conócenos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     );
 };

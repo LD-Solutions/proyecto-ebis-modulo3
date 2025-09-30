@@ -1,0 +1,131 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-slate-200);
+  height: var(--navbar-height);
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.logo {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-navy);
+  transition: color var(--transition-base);
+}
+
+.logo:hover {
+  color: var(--color-sky);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  list-style: none;
+}
+
+.navItem {
+  position: relative;
+}
+
+.navLink {
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-slate-600);
+  transition: color var(--transition-base);
+  padding: var(--space-2) 0;
+  display: inline-block;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-sky);
+  transition: width var(--transition-base);
+}
+
+.navLink:hover {
+  color: var(--color-navy);
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+/* Mobile Menu Toggle */
+.mobileMenuButton {
+  display: none;
+  background: none;
+  border: none;
+  padding: var(--space-2);
+  color: var(--color-navy);
+  font-size: var(--text-2xl);
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+    position: absolute;
+    top: var(--navbar-height);
+    left: 0;
+    right: 0;
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-slate-200);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .nav.open {
+    display: block;
+  }
+
+  .navList {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--space-4);
+  }
+
+  .navLink {
+    display: block;
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--color-slate-100);
+  }
+
+  .navLink::after {
+    display: none;
+  }
+
+  .mobileMenuButton {
+    display: block;
+  }
+}
