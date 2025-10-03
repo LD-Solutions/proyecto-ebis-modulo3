@@ -52,3 +52,18 @@ export const getFormacion = async (id: number): Promise<Formacion> => {
   const response = await api.get<Formacion>(`/formaciones/${id}`);
   return response.data;
 };
+
+/**
+ * Update a formacion
+ */
+export const updateFormacion = async (id: number, data: Partial<Formacion>): Promise<Formacion> => {
+  const response = await api.put<Formacion>(`/formaciones/${id}`, data);
+  return response.data;
+};
+
+/**
+ * Delete a formacion
+ */
+export const deleteFormacion = async (id: number): Promise<void> => {
+  await api.delete(`/formaciones/${id}`);
+};

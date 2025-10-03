@@ -1,12 +1,16 @@
 import React from 'react';
+import { useAuth } from '../context/AuthContext';
 import styles from './FormacionCard.module.css';
 import type { Formacion } from '../services/formacionService';
 
 interface FormacionCardProps {
   formacion: Formacion;
+  onEdit?: (formacion: Formacion) => void;
+  onDelete?: (id: number) => void;
 }
 
-const FormacionCard: React.FC<FormacionCardProps> = ({ formacion }) => {
+const FormacionCard: React.FC<FormacionCardProps> = ({ formacion, onEdit, onDelete }) => {
+  const { isAuthenticated } = useAuth();
   const getTipoBadgeColor = (tipo: string) => {
     switch (tipo) {
       case 'curso': return styles.badgeCurso;
@@ -62,16 +66,37 @@ const FormacionCard: React.FC<FormacionCardProps> = ({ formacion }) => {
           </div>
         </div>
 
-        {formacion.url && (
-          <a
-            href={formacion.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.button}
-          >
-            Ver contenido →
-          </a>
-        )}
+        <div className={styles.actions}>
+          {formacion.url && (
+            <a
+              href={formacion.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.button}
+            >
+              Ver contenido →
+            </a>
+          )}
+
+          {isAuthenticated && (
+            <div className={styles.adminButtons}>
+              <button
+                onClick={() => onEdit?.(formacion)}
+                className={styles.editButton}
+                title="Editar formación"
+              >
+                ✏️ Editar
+              </button>
+              <button
+                onClick={() => onDelete?.(formacion.id)}
+                className={styles.deleteButton}
+                title="Eliminar formación"
+              >
+                🗑️ Eliminar
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

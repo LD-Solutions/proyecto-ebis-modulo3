@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Formaciones.module.css';
 import type { Formacion, FormacionFilters as Filters } from '../services/formacionService';
-import { getFormaciones } from '../services/formacionService'
+import { getFormaciones, updateFormacion, deleteFormacion } from '../services/formacionService';
+import { useToast } from '../context/ToastContext';
 import FormacionCard from '../components/FormacionCard';
 import FormacionFilters from '../components/FormacionFilters';
+import EditFormacionModal from '../components/EditFormacionModal';
 
 const Formaciones: React.FC = () => {
   const [formaciones, setFormaciones] = useState<Formacion[]>([]);
@@ -11,6 +13,8 @@ const Formaciones: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedTipo, setSelectedTipo] = useState<string | null>(null);
   const [selectedNivel, setSelectedNivel] = useState<string | null>(null);
+  const [editingFormacion, setEditingFormacion] = useState<Formacion | null>(null);
+  const { showToast } = useToast();
 
   useEffect(() => {
     fetchFormaciones();
@@ -38,6 +42,28 @@ const Formaciones: React.FC = () => {
   const handleClearFilters = () => {
     setSelectedTipo(null);
     setSelectedNivel(null);
+  };
+
+  const handleEdit = (formacion: Formacion) => {
+    setEditingFormacion(formacion);
+  };
+
+  const handleSave = async (id: number, data: Partial<Formacion>) => {
+    await updateFormacion(id, data);
+    showToast('Formación actualizada correctamente');
+    fetchFormaciones();
+  };
+
+  const handleDelete = async (id: number) => {
+    if (window.confirm('¿Estás seguro de que deseas eliminar esta formación?')) {
+      try {
+        await deleteFormacion(id);
+        showToast('Formación eliminada correctamente');
+        fetchFormaciones();
+      } catch (err) {
+        showToast('Error al eliminar la formación');
+      }
+    }
   };
 
   return (
@@ -92,11 +118,25 @@ const Formaciones: React.FC = () => {
         {!loading && !error && formaciones.length > 0 && (
           <div className={styles.grid}>
             {formaciones.map((formacion) => (
-              <FormacionCard key={formacion.id} formacion={formacion} />
+              <FormacionCard
+                key={formacion.id}
+                formacion={formacion}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
             ))}
           </div>
         )}
       </div>
+
+      {/* Edit Modal */}
+      {editingFormacion && (
+        <EditFormacionModal
+          formacion={editingFormacion}
+          onClose={() => setEditingFormacion(null)}
+          onSave={handleSave}
+        />
+      )}
     </div>
   );
 };

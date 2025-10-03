@@ -134,6 +134,13 @@
   font-weight: 600;
 }
 
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -147,12 +154,54 @@
   border-radius: var(--radius-md);
   transition: all var(--transition-base);
   text-decoration: none;
-  margin-top: var(--space-2);
 }
 
 .button:hover {
   background-color: var(--color-navy);
   transform: translateX(2px);
+}
+
+.adminButtons {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.editButton,
+.deleteButton {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  border: none;
+  cursor: pointer;
+}
+
+.editButton {
+  background-color: #F59E0B;
+  color: var(--color-white);
+}
+
+.editButton:hover {
+  background-color: #D97706;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.deleteButton {
+  background-color: #EF4444;
+  color: var(--color-white);
+}
+
+.deleteButton:hover {
+  background-color: #DC2626;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 /* Responsive */

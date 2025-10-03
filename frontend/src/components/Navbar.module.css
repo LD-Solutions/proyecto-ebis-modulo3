@@ -80,6 +80,30 @@
   width: 100%;
 }
 
+/* Auth Button */
+.authButton {
+  padding: var(--space-2) var(--space-6);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-white);
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
+}
+
+.authButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.authButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
+}
+
 /* Mobile Menu Toggle */
 .mobileMenuButton {
   display: none;

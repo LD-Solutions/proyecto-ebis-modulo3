@@ -23,6 +23,14 @@
   --color-error: #EF4444;
   --color-warning: #F59E0B;
 
+  /* Additional Colors */
+  --color-sky-50: #F0F9FF;
+  --color-sky-100: #E0F2FE;
+  --color-slate-700: #334155;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--color-sky) 0%, #0284C7 100%);
+
   /* Typography */
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
