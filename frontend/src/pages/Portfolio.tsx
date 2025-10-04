@@ -209,61 +209,63 @@ export default function Portfolio() {
           </button>
         </div>
       ) : (
-        <table className={styles.table}>
-          <thead className={styles.tableHeader}>
-            <tr>
-              <th>Símbolo</th>
-              <th>Participaciones</th>
-              <th>Precio Compra</th>
-              <th>Precio Actual</th>
-              <th>Valor Actual</th>
-              <th>Ganancia/Pérdida</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {summary.holdings.map((holding) => (
-              <tr key={holding.id} className={styles.tableRow}>
-                <td className={`${styles.tableCell} ${styles.symbolCell}`}>
-                  <div>{holding.symbol}</div>
-                  <div className={styles.fundName}>{holding.index_fund.name}</div>
-                </td>
-                <td className={styles.tableCell}>{holding.shares.toFixed(2)}</td>
-                <td className={styles.tableCell}>{formatCurrency(holding.purchase_price)}</td>
-                <td className={styles.tableCell}>{formatCurrency(holding.index_fund.current_price)}</td>
-                <td className={styles.tableCell}>{formatCurrency(holding.current_value)}</td>
-                <td className={`${styles.tableCell} ${holding.profit_loss >= 0 ? styles.positive : styles.negative}`}>
-                  {formatCurrency(holding.profit_loss)}
-                </td>
-                <td className={styles.tableCell}>
-                  <div className={styles.rowActions}>
-                    <button
-                      className={styles.iconButton}
-                      onClick={() => openBuyMoreModal(holding)}
-                      title="Comprar más"
-                    >
-                      + Comprar
-                    </button>
-                    <button
-                      className={styles.iconButton}
-                      onClick={() => openSellModal(holding)}
-                      title="Vender"
-                    >
-                      Vender
-                    </button>
-                    <button
-                      className={`${styles.iconButton} ${styles.danger}`}
-                      onClick={() => handleSellAll(holding)}
-                      title="Vender todo"
-                    >
-                      Vender Todo
-                    </button>
-                  </div>
-                </td>
+        <div className={styles.tableWrapper}>
+          <table className={styles.table}>
+            <thead className={styles.tableHeader}>
+              <tr>
+                <th>Símbolo</th>
+                <th>Participaciones</th>
+                <th>Precio Compra</th>
+                <th>Precio Actual</th>
+                <th>Valor Actual</th>
+                <th>Ganancia/Pérdida</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {summary.holdings.map((holding) => (
+                <tr key={holding.id} className={styles.tableRow}>
+                  <td className={`${styles.tableCell} ${styles.symbolCell}`}>
+                    <div>{holding.symbol}</div>
+                    <div className={styles.fundName}>{holding.index_fund.name}</div>
+                  </td>
+                  <td className={styles.tableCell}>{Number(holding.shares).toFixed(2)}</td>
+                  <td className={styles.tableCell}>{formatCurrency(holding.purchase_price)}</td>
+                  <td className={styles.tableCell}>{formatCurrency(holding.index_fund.current_price)}</td>
+                  <td className={styles.tableCell}>{formatCurrency(holding.current_value)}</td>
+                  <td className={`${styles.tableCell} ${holding.profit_loss >= 0 ? styles.positive : styles.negative}`}>
+                    {formatCurrency(holding.profit_loss)}
+                  </td>
+                  <td className={styles.tableCell}>
+                    <div className={styles.rowActions}>
+                      <button
+                        className={`${styles.iconButton} ${styles.buy}`}
+                        onClick={() => openBuyMoreModal(holding)}
+                        title="Comprar más"
+                      >
+                        <span className={styles.buttonIcon}>+</span>
+                      </button>
+                      <button
+                        className={`${styles.iconButton} ${styles.sell}`}
+                        onClick={() => openSellModal(holding)}
+                        title="Vender"
+                      >
+                        <span className={styles.buttonIcon}>−</span>
+                      </button>
+                      <button
+                        className={`${styles.iconButton} ${styles.danger}`}
+                        onClick={() => handleSellAll(holding)}
+                        title="Vender todo"
+                      >
+                        <span className={styles.buttonIcon}>✕</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
 
       {/* Buy New Modal */}
@@ -372,7 +374,7 @@ export default function Portfolio() {
                 <input
                   type="text"
                   className={styles.input}
-                  value={selectedHolding.shares.toFixed(2)}
+                  value={Number(selectedHolding.shares).toFixed(2)}
                   disabled
                 />
               </div>
