@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@context/AuthContext';
 import { useToast } from '@context/ToastContext';
-import { portfolioService, Portfolio as PortfolioType, PortfolioSummary } from '@services/portfolioService';
+import { portfolioService } from '@services/portfolioService';
+import type {Portfolio as PortfolioType, PortfolioSummary} from '@services/portfolioService';
 import styles from './Portfolio.module.css';
 
 export default function Portfolio() {
