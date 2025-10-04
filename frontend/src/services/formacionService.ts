@@ -1,16 +1,21 @@
-import api from './api';
+import api from '@services/api';
 
 export interface Formacion {
   id: number;
   titulo: string;
   descripcion: string;
-  tipo: 'curso' | 'video' | 'libro' | 'webinar';
-  nivel: 'principiante' | 'intermedio' | 'avanzado';
-  duracion: string;
   instructor: string;
-  url?: string;
-  imagen?: string;
+  duracion_horas?: number;
+  precio: number;
+  tipo: 'curso' | 'video' | 'libro' | 'webinar';
+  categoria: string;
+  nivel: 'principiante' | 'intermedio' | 'avanzado';
+  fecha_inicio?: string;
+  archivo_path?: string;
+  paginas?: number;
+  url_video?: string;
   created_at: string;
+  updated_at: string;
 }
 
 export interface FormacionesResponse {
@@ -58,6 +63,14 @@ export const getFormacion = async (id: number): Promise<Formacion> => {
  */
 export const updateFormacion = async (id: number, data: Partial<Formacion>): Promise<Formacion> => {
   const response = await api.put<Formacion>(`/formaciones/${id}`, data);
+  return response.data;
+};
+
+/**
+ * Create a new formacion
+ */
+export const createFormacion = async (data: Omit<Formacion, 'id' | 'created_at' | 'updated_at'>): Promise<Formacion> => {
+  const response = await api.post<Formacion>('/formaciones', data);
   return response.data;
 };
 

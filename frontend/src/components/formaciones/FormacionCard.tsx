@@ -1,7 +1,7 @@
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '@context/AuthContext';
 import styles from './FormacionCard.module.css';
-import type { Formacion } from '../services/formacionService';
+import type { Formacion } from '@services/formacionService';
 
 interface FormacionCardProps {
   formacion: Formacion;
@@ -32,7 +32,7 @@ const FormacionCard: React.FC<FormacionCardProps> = ({ formacion, onEdit, onDele
 
   return (
     <div className={styles.card}>
-      {formacion.imagen && (
+      {/* {formacion.imagen && (
         <div className={styles.imageContainer}>
           <img
             src={formacion.imagen}
@@ -40,7 +40,7 @@ const FormacionCard: React.FC<FormacionCardProps> = ({ formacion, onEdit, onDele
             className={styles.image}
           />
         </div>
-      )}
+      )} */}
 
       <div className={styles.content}>
         <div className={styles.badges}>
@@ -62,14 +62,16 @@ const FormacionCard: React.FC<FormacionCardProps> = ({ formacion, onEdit, onDele
           </div>
           <div className={styles.metaItem}>
             <span className={styles.metaLabel}>Duración:</span>
-            <span className={styles.metaValue}>{formacion.duracion}</span>
+            <span className={styles.metaValue}>
+              {formacion.duracion_horas ? `${formacion.duracion_horas} horas` : 'No disponible'}
+            </span>
           </div>
         </div>
 
         <div className={styles.actions}>
-          {formacion.url && (
+          {formacion.url_video && (
             <a
-              href={formacion.url}
+              href={formacion.url_video}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.button}

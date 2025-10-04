@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { useToast } from '../context/ToastContext';
+import { useAuth } from '@context/AuthContext';
+import { useToast } from '@context/ToastContext';
 import styles from './Navbar.module.css';
 
 const Navbar: React.FC = () => {
@@ -28,10 +28,10 @@ const Navbar: React.FC = () => {
                 <div className={styles.nav}>
                     <ul className={styles.navList}>
                         <li className={styles.navItem}>
-                            <Link to="/formacion" className={styles.navLink}>Formación</Link>
+                            <Link to="/cartera" className={styles.navLink}>Mi cartera</Link>
                         </li>
                         <li className={styles.navItem}>
-                            <Link to="/dashboard" className={styles.navLink}>Mi cartera</Link>
+                            <Link to="/formacion" className={styles.navLink}>Formación</Link>
                         </li>
                         <li className={styles.navItem}>
                             <Link to="/bolsa" className={styles.navLink}>Estado de la bolsa</Link>

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Formaciones.module.css';
-import type { Formacion, FormacionFilters as Filters } from '../services/formacionService';
-import { getFormaciones, updateFormacion, deleteFormacion } from '../services/formacionService';
-import { useToast } from '../context/ToastContext';
-import FormacionCard from '../components/FormacionCard';
-import FormacionFilters from '../components/FormacionFilters';
-import EditFormacionModal from '../components/EditFormacionModal';
+import type { Formacion, FormacionFilters as Filters } from '@services/formacionService';
+import { getFormaciones, createFormacion, updateFormacion, deleteFormacion } from '@services/formacionService';
+import { useToast } from '@context/ToastContext';
+import { useAuth } from '@context/AuthContext';
+import FormacionCard from '@components/formaciones/FormacionCard';
+import FormacionFilters from '@components/formaciones/FormacionFilters';
+import EditFormacionModal from '@components/formaciones/EditFormacionModal';
 
 const Formaciones: React.FC = () => {
   const [formaciones, setFormaciones] = useState<Formacion[]>([]);
@@ -14,7 +15,9 @@ const Formaciones: React.FC = () => {
   const [selectedTipo, setSelectedTipo] = useState<string | null>(null);
   const [selectedNivel, setSelectedNivel] = useState<string | null>(null);
   const [editingFormacion, setEditingFormacion] = useState<Formacion | null>(null);
+  const [isCreating, setIsCreating] = useState<boolean>(false);
   const { showToast } = useToast();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     fetchFormaciones();
@@ -48,9 +51,14 @@ const Formaciones: React.FC = () => {
     setEditingFormacion(formacion);
   };
 
-  const handleSave = async (id: number, data: Partial<Formacion>) => {
-    await updateFormacion(id, data);
-    showToast('Formación actualizada correctamente');
+  const handleSave = async (id: number | null, data: Partial<Formacion>) => {
+    if (id) {
+      await updateFormacion(id, data);
+      showToast('Formación actualizada correctamente');
+    } else {
+      await createFormacion(data as Omit<Formacion, 'id' | 'created_at'>);
+      showToast('Formación creada correctamente');
+    }
     fetchFormaciones();
   };
 
@@ -75,6 +83,11 @@ const Formaciones: React.FC = () => {
           <p className={styles.subtitle}>
             Aprende a gestionar tus finanzas con nuestros cursos, videos y recursos educativos
           </p>
+          {isAuthenticated && (
+            <button onClick={() => setIsCreating(true)} className={styles.createButton}>
+              + Nueva Formación
+            </button>
+          )}
         </div>
 
         {/* Filters */}
@@ -134,6 +147,14 @@ const Formaciones: React.FC = () => {
         <EditFormacionModal
           formacion={editingFormacion}
           onClose={() => setEditingFormacion(null)}
+          onSave={handleSave}
+        />
+      )}
+
+      {/* Create Modal */}
+      {isCreating && (
+        <EditFormacionModal
+          onClose={() => setIsCreating(false)}
           onSave={handleSave}
         />
       )}

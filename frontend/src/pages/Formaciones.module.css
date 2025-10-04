@@ -30,6 +30,26 @@
   font-size: var(--text-lg);
   color: var(--color-slate-600);
   line-height: 1.6;
+  margin-bottom: var(--space-6);
+}
+
+.createButton {
+  padding: var(--space-3) var(--space-6);
+  background-color: #10B981;
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: var(--text-base);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.createButton:hover {
+  background-color: #059669;
+  box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+  transform: translateY(-1px);
 }
 
 .grid {
