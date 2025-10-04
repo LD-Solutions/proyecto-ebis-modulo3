@@ -40,6 +40,7 @@ export default function Portfolio() {
       setError(null);
       const data = await portfolioService.getPortfolio();
       setSummary(data);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error('Error loading portfolio:', err);
       setError(err.response?.data?.message || 'Error al cargar la cartera');
@@ -58,13 +59,14 @@ export default function Portfolio() {
         symbol: symbol.trim(),
         shares: parseFloat(shares),
       });
-      showToast('Compra realizada exitosamente', 'success');
+      showToast('Compra realizada exitosamente', 3000);
       setShowBuyNewModal(false);
       setSymbol('');
       setShares('');
       await loadPortfolio();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      showToast(err.response?.data?.error || 'Error al realizar la compra', 'error');
+      showToast(err.response?.data?.error || 'Error al realizar la compra', 3000);
     } finally {
       setSubmitting(false);
     }
@@ -80,13 +82,14 @@ export default function Portfolio() {
         action: 'buy',
         shares: parseFloat(shares),
       });
-      showToast('Compra adicional realizada exitosamente', 'success');
+      showToast('Compra adicional realizada exitosamente', 3000);
       setShowBuyMoreModal(false);
       setShares('');
       setSelectedHolding(null);
       await loadPortfolio();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      showToast(err.response?.data?.error || 'Error al comprar más participaciones', 'error');
+      showToast(err.response?.data?.error || 'Error al comprar más participaciones', 3000);
     } finally {
       setSubmitting(false);
     }
@@ -102,13 +105,14 @@ export default function Portfolio() {
         action: 'sell',
         shares: parseFloat(shares),
       });
-      showToast('Venta realizada exitosamente', 'success');
+      showToast('Venta realizada exitosamente', 3000);
       setShowSellModal(false);
       setShares('');
       setSelectedHolding(null);
       await loadPortfolio();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      showToast(err.response?.data?.error || 'Error al vender participaciones', 'error');
+      showToast(err.response?.data?.error || 'Error al vender participaciones', 3000);
     } finally {
       setSubmitting(false);
     }
@@ -121,10 +125,11 @@ export default function Portfolio() {
 
     try {
       const result = await portfolioService.sellAll(holding.id);
-      showToast(`Posición vendida por €${result.sale_value.toFixed(2)}`, 'success');
+      showToast(`Posición vendida por €${Number(result.sale_value).toFixed(2)}`, 3000);
       await loadPortfolio();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      showToast(err.response?.data?.error || 'Error al vender la posición', 'error');
+      showToast(err.response?.data?.error || 'Error al vender la posición', 3000);
     }
   };
 
