@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Noticias.module.css';
 import { useAuth } from '@context/AuthContext';
-import { useToast } from '@context/ToastContext';
 import type { Noticia } from '@services/noticiasService';
 import { getNoticias } from '@services/noticiasService';
+import NoticiaCard from '@components/noticias/NoticiaCard';
 
 const Noticias: React.FC = () => {
   const [noticias, setNoticias] = useState<Noticia[]>([]);
@@ -11,7 +11,6 @@ const Noticias: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isAdminOpen, setIsAdminOpen] = useState<boolean>(false);
   const { isAuthenticated } = useAuth();
-  const { showToast } = useToast();
 
   useEffect(() => {
     fetchNoticias();
@@ -93,33 +92,7 @@ const Noticias: React.FC = () => {
         {!loading && !error && noticias.length > 0 && (
           <div className={styles.list}>
             {noticias.map((noticia) => (
-              <article key={noticia.id} className={styles.card}>
-                {noticia.imagen_url && (
-                  <div className={styles.imageContainer}>
-                    <img
-                      src={noticia.imagen_url}
-                      alt={noticia.titulo}
-                      className={styles.image}
-                    />
-                  </div>
-                )}
-                <div className={styles.content}>
-                  <h2 className={styles.noticiaTitle}>{noticia.titulo}</h2>
-                  <div className={styles.meta}>
-                    <span className={styles.date}>
-                      {new Date(noticia.fecha_publicacion).toLocaleDateString('es-ES', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </span>
-                    {noticia.autor && (
-                      <span className={styles.author}>Por {noticia.autor}</span>
-                    )}
-                  </div>
-                  <p className={styles.excerpt}>{noticia.contenido}</p>
-                </div>
-              </article>
+              <NoticiaCard key={noticia.id} noticia={noticia} />
             ))}
           </div>
         )}
