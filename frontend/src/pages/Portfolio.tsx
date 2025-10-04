@@ -28,7 +28,7 @@ export default function Portfolio() {
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate('/login', { state: { from: '/cartera' } });
       return;
     }
     loadPortfolio();

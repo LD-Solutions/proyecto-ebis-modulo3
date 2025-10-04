@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { useAuth } from '@context/AuthContext';
 import styles from './Login.module.css';
 
@@ -12,6 +12,8 @@ const Login: React.FC = () => {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
 
   const validateForm = (): boolean => {
     const newErrors: { email?: string; password?: string } = {};
@@ -46,7 +48,9 @@ const Login: React.FC = () => {
 
     try {
       await login(email, password);
-      navigate('/');
+      // Priority: location.state.from > URL param > home
+      const redirectTo = (location.state as any)?.from || searchParams.get('redirect') || '/';
+      navigate(redirectTo);
     } catch (error: any) {
       if (error.response?.status === 401) {
         setLoginError('Credenciales incorrectas. Por favor, verifica tu correo y contraseña.');

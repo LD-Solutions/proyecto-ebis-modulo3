@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@context/AuthContext';
 import { useToast } from '@context/ToastContext';
 import styles from './Navbar.module.css';
@@ -8,6 +8,7 @@ const Navbar: React.FC = () => {
     const { isAuthenticated, logout } = useAuth();
     const { showToast } = useToast();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleAuthAction = () => {
         if (isAuthenticated) {
@@ -15,7 +16,7 @@ const Navbar: React.FC = () => {
             showToast('¡Gracias por usar nuestros servicios!', 3000);
             navigate('/');
         } else {
-            navigate('/login');
+            navigate(`/login?redirect=${encodeURIComponent(location.pathname)}`);
         }
     };
 
