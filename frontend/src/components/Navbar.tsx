@@ -34,10 +34,7 @@ const Navbar: React.FC = () => {
                             <Link to="/formacion" className={styles.navLink}>Formación</Link>
                         </li>
                         <li className={styles.navItem}>
-                            <Link to="/bolsa" className={styles.navLink}>Estado de la bolsa</Link>
-                        </li>
-                        <li className={styles.navItem}>
-                            <Link to="/conocenos" className={styles.navLink}>Conócenos</Link>
+                            <Link to="/noticias" className={styles.navLink}>Noticias</Link>
                         </li>
                         <li className={styles.navItem}>
                             <button
