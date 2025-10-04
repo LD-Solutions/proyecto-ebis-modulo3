@@ -13,6 +13,7 @@ export default defineConfig({
       '@services': path.resolve(__dirname, './src/services'),
       '@context': path.resolve(__dirname, './src/context'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@constants': path.resolve(__dirname, './src/constants'),
     },
   },
 })

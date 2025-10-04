@@ -5,7 +5,8 @@ export interface Noticia {
   titulo: string;
   contenido: string;
   fecha_publicacion: string;
-  autor?: string;
+  autor: string;
+  categoria: string;
   imagen_url?: string;
   created_at: string;
   updated_at: string;

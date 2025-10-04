@@ -33,6 +33,66 @@
   margin-bottom: var(--space-6);
 }
 
+/* Filter Section */
+.filterSection {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filterTitle {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-navy);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.filterPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.filterPill {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  border: 2px solid;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: transparent;
+}
+
+.filterPill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filterPill.active {
+  color: white;
+}
+
+.clearFiltersButton {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: var(--color-slate-600);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clearFiltersButton:hover {
+  background: var(--color-slate-700);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Admin Section */
 .adminSection {
   background: var(--color-white);
@@ -166,6 +226,38 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
+}
+
+/* Load More */
+.loadMoreContainer {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-8) 0;
+}
+
+.loadMoreButton {
+  padding: var(--space-3) var(--space-8);
+  background: var(--color-sky);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.loadMoreButton:hover:not(:disabled) {
+  background: var(--color-navy);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.loadMoreButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* Responsive */

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './NoticiaCard.module.css';
 import type { Noticia } from '@services/noticiasService';
+import { getCategoryColor } from '@constants/categories';
 
 interface NoticiaCardProps {
   noticia: Noticia;
@@ -48,7 +49,17 @@ const NoticiaCard: React.FC<NoticiaCardProps> = ({ noticia }) => {
       </div>
       <div className={styles.content}>
         <div className={styles.textContent}>
-          <h2 className={styles.title}>{noticia.titulo}</h2>
+          <div className={styles.titleRow}>
+            <h2 className={styles.title}>{noticia.titulo}</h2>
+            {noticia.categoria && (
+              <span
+                className={styles.categoryPill}
+                style={{ backgroundColor: getCategoryColor(noticia.categoria) }}
+              >
+                {noticia.categoria}
+              </span>
+            )}
+          </div>
           <div className={styles.meta}>
             <span className={styles.date}>
               {new Date(noticia.fecha_publicacion).toLocaleDateString('es-ES', {
