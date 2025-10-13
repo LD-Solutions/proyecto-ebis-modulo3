@@ -417,7 +417,7 @@ Este proyecto fue desarrollado con fines educativos como parte del programa Mast
 
 <div align="center">
 
-## 👨‍💻 **Desarrollado por David**
+## 👨‍💻 **Desarrollado por David y Luis**
 
 > *Finsmart representa una implementación completa de una plataforma full stack moderna,
 > combinando las mejores prácticas de backend con Laravel y frontend con React/TypeScript.*
