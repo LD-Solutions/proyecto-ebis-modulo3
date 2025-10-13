@@ -8,7 +8,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org)
 
-> **🎓 Proyecto desarrollado por David para el Master EBIS Full Stack Developer**
+> **🎓 Proyecto desarrollado por David y Luis para el Master EBIS Full Stack Developer**
 > *Plataforma empresarial completa con backend Laravel y frontend React/TypeScript*
 
 ![Architecture](https://img.shields.io/badge/Architecture-Full_Stack-success?style=for-the-badge)
