@@ -38,6 +38,15 @@ const Navbar: React.FC = () => {
                             <Link to="/noticias" className={styles.navLink}>Noticias</Link>
                         </li>
                         <li className={styles.navItem}>
+                            <Link to="/empleados" className={styles.navLink}>Empleados</Link>
+                        </li>
+                        <li className={styles.navItem}>
+                            <Link to="/calculadora-ahorros" className={styles.navLink}>Calculadora</Link>
+                        </li>
+                        <li className={styles.navItem}>
+                            <Link to="/contacto" className={styles.navLink}>Contacto</Link>
+                        </li>
+                        <li className={styles.navItem}>
                             <button
                                 onClick={handleAuthAction}
                                 className={styles.authButton}
