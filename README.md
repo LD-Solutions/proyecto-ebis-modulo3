@@ -64,6 +64,9 @@ proyecto-ebis-modulo3/
     │   │   ├── Noticias.tsx
     │   │   ├── NoticiaDetail.tsx
     │   │   ├── Formaciones.tsx
+    │   │   ├── CalculadoraAhorro.tsx
+    │   │   ├── Empleados.tsx
+    │   │   ├── Contacto.tsx
     │   │   └── Portfolio.tsx
     │   ├── components/        # Componentes reutilizables
     │   │   ├── Layout.tsx
@@ -90,7 +93,7 @@ proyecto-ebis-modulo3/
 | **Laravel** | 12.0 | Framework PHP principal |
 | **PHP** | 8.2+ | Lenguaje del servidor |
 | **Laravel Sanctum** | 4.1 | Autenticación con tokens API |
-| **SQLite** | 3 | Base de datos embebida |
+| **MySQL** | 3 | Base de datos SQL |
 | **L5-Swagger** | 9.0 | Documentación API interactiva |
 
 ### **Frontend**
@@ -120,6 +123,12 @@ cd proyecto-ebis-modulo3
 ```
 
 ### **Paso 2: Configurar Backend**
+
+Crear BBDD "laravel" en MySQL
+```bash
+CREATE DATABASE laravel;
+```
+
 ```bash
 cd backend
 composer install
@@ -142,12 +151,20 @@ npm run dev
 
 ---
 
-## 🔑 Credenciales de Prueba
-
+## 🔑 Credenciales de Prueba por roles
+### Admin
 ```json
 {
-  "email": "test@example.com",
-  "password": "password123"
+  "email": "admin@ebis.com",
+  "password": "ebis12345"
+}
+```
+
+### User
+```json
+{
+  "email": "user@ebis.com",
+  "password": "ebis12345"
 }
 ```
 
@@ -217,16 +234,18 @@ npm run dev
 - CRUD completo de empleados
 - Información detallada: nombre, email, puesto, salario
 - API REST con paginación
+- Diferenciacion de vista por roles
 
 ### 💰 **Calculadora de Ahorros**
 - Método 50/30/20 (necesidades/gastos/ahorros)
 - Cálculo automático basado en ingresos
 - Asignada automáticamente al crear usuario
+- Crud para editar ingresos de usuarios solo para admin
+- Guardado para usuarios 
 
 ### ✉️ **Mensajes de Contacto**
 - Formulario de contacto público
 - Panel de administración para gestionar mensajes
-- Estado de mensajes (leído/no leído)
 
 ---
 
@@ -266,8 +285,100 @@ PUT    /api/portfolios/{id}       - Comprar más / Vender (auth)
 DELETE /api/portfolios/{id}       - Vender todo (auth)
 ```
 
-### **Empleados, Calculadora y Mensajes**
-Consulta el [`backend/README.md`](backend/README.md) para endpoints completos.
+### **Empleados**
+```
+GET    /api/empleados             - Listar todos los empleados
+POST   /api/empleados             - Crear empleado (admin)
+GET    /api/empleados/{id}        - Ver empleado específico
+PUT    /api/empleados/{id}        - Actualizar empleado (admin)
+DELETE /api/empleados/{id}        - Eliminar empleado (admin)
+```
+
+### **Calculadora de Ahorros**
+```
+GET    /api/calculadora-ahorros           - Listar todas las calculadoras (admin)
+GET    /api/calculadora-ahorros/{id}      - Ver calculadora por ID de usuario (auth)
+PUT    /api/calculadora-ahorros/{id}      - Actualizar calculadora por ID de usuario (auth)
+DELETE /api/calculadora-ahorros/{id}      - Resetear calculadora por ID de usuario (auth)
+```
+
+### **Mensajes de Contacto**
+```
+GET    /api/mensajes-contacto             - Listar todos los mensajes (admin)
+POST   /api/mensajes-contacto             - Crear mensaje (público)
+GET    /api/mensajes-contacto/{id}        - Ver mensaje específico (admin)
+PUT    /api/mensajes-contacto/{id}        - Actualizar mensaje (admin)
+DELETE /api/mensajes-contacto/{id}        - Eliminar mensaje (admin)
+```
+
+## 🧪 Tests
+
+### **Ejecutar Tests**
+```bash
+cd frontend
+npm run test              # Ejecutar todos los tests
+npm run test:watch        # Modo watch (recarga automática)
+npm run test:ui           # Interfaz gráfica de tests
+```
+
+### **Cobertura de Tests**
+
+#### **Empleados Component** (5 tests)
+```
+✓ Muestra loading spinner mientras carga
+✓ Muestra empleados agrupados por departamento (usuario normal)
+✓ Muestra botones de admin y permite crear empleado (admin)
+✓ Muestra mensaje de error cuando falla la carga
+✓ Permite eliminar un empleado (admin)
+```
+
+#### **Contacto Component** (6 tests)
+```
+✓ Muestra formulario de contacto para usuarios no autenticados
+✓ Permite enviar mensaje sin autenticación
+✓ Muestra buzón de mensajes (admin)
+✓ Permite ver mensaje completo en modal (admin)
+✓ Permite eliminar mensaje (admin)
+✓ Muestra mensaje vacío cuando no hay mensajes (admin)
+```
+
+#### **Calculadora de Ahorros Component** (7 tests)
+```
+✓ Muestra pantalla de login para usuarios no autenticados
+✓ Carga y muestra calculadora del usuario normal
+✓ Calcula correctamente los porcentajes 50/30/20
+✓ Cambia entre vista mensual y anual
+✓ Permite guardar la calculadora
+✓ Muestra panel de administrador con lista de usuarios
+✓ Permite resetear la calculadora
+```
+
+### **Tecnologías de Testing**
+- **Framework**: Vitest 2.1.8
+- **Testing Library**: React Testing Library 16.1.0
+- **User Events**: @testing-library/user-event 14.5.0
+- **Assertions**: @testing-library/jest-dom 6.6.3
+- **Environment**: jsdom 25.0.1
+
+### **Estructura de Tests**
+```
+frontend/
+├── src/
+│   ├── test/
+│   │   ├── setup.ts                      # Configuración global
+│   │   ├── Empleados.test.tsx            # Tests de empleados
+│   │   ├── Contacto.test.tsx             # Tests de contacto
+│   │   └── CalculadoraAhorros.test.tsx   # Tests de calculadora
+│   └── ...
+└── vitest.config.ts                       # Configuración de Vitest
+```
+
+### **Total**
+```
+✅ 18 tests en total
+✅ 3 archivos de test
+✅ Cobertura de componentes principales
+```
 
 ---
 
