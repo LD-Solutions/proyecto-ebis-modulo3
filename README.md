@@ -93,7 +93,7 @@ proyecto-ebis-modulo3/
 | **Laravel** | 12.0 | Framework PHP principal |
 | **PHP** | 8.2+ | Lenguaje del servidor |
 | **Laravel Sanctum** | 4.1 | Autenticación con tokens API |
-| **SQLite** | 3 | Base de datos embebida |
+| **MySQL** | 3 | Base de datos SQL |
 | **L5-Swagger** | 9.0 | Documentación API interactiva |
 
 ### **Frontend**
@@ -123,6 +123,12 @@ cd proyecto-ebis-modulo3
 ```
 
 ### **Paso 2: Configurar Backend**
+
+Crear BBDD "laravel" en MySQL
+```bash
+CREATE DATABASE laravel;
+```
+
 ```bash
 cd backend
 composer install
